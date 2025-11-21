@@ -7,8 +7,7 @@ import { Layout } from './components/Layout';
 import { Login } from './pages/Login';
 import { Register } from './pages/Register';
 import { Dashboard } from './pages/Dashboard';
-import { Stories } from './pages/Stories';
-import { Notes } from './pages/Notes';
+import { Preparation } from './pages/Preparation';
 import { Settings } from './pages/Settings';
 
 function App() {
@@ -30,21 +29,11 @@ function App() {
               }
             />
             <Route
-              path="/stories"
+              path="/preparation"
               element={
                 <ProtectedRoute>
                   <Layout>
-                    <Stories />
-                  </Layout>
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/notes"
-              element={
-                <ProtectedRoute>
-                  <Layout>
-                    <Notes />
+                    <Preparation />
                   </Layout>
                 </ProtectedRoute>
               }

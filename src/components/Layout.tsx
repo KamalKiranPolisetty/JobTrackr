@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { Briefcase, LayoutDashboard, BookText, FileText, Settings, LogOut, Moon, Sun } from 'lucide-react';
+import { Briefcase, LayoutDashboard, Lightbulb, Settings, LogOut, Moon, Sun } from 'lucide-react';
 import { motion } from 'framer-motion';
 import toast from 'react-hot-toast';
 import { useAuth } from '../contexts/AuthContext';
@@ -28,8 +28,7 @@ export const Layout = ({ children }: LayoutProps) => {
 
   const navItems = [
     { to: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
-    { to: '/stories', icon: BookText, label: 'Stories' },
-    { to: '/notes', icon: FileText, label: 'Notes' },
+    { to: '/preparation', icon: Lightbulb, label: 'Preparation' },
     { to: '/settings', icon: Settings, label: 'Settings' },
   ];
 
