@@ -280,7 +280,7 @@ export const Settings = () => {
                 }`}
               >
                 <div className="flex items-center justify-between">
-                  <div className="h-10 w-10 rounded-xl bg-slate-900 text-slate-100 dark:bg-[#1c1917] dark:text-[#e8e3d9] border border-slate-800 dark:border-[#3a3733] flex items-center justify-center shadow-xs">
+                  <div className="h-10 w-10 rounded-xl bg-[#1c1917] text-[#e8e3d9] border border-[#3a3733] flex items-center justify-center shadow-xs">
                     <Moon className="h-5 w-5" />
                   </div>
                   {theme === 'dark' && <Check className="h-5 w-5 text-[#D7494C] font-bold" />}
