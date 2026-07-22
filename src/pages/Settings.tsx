@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { 
   User, Palette, Save, AlertTriangle, Download, 
-  Moon, Sun, ShieldCheck, Check, Database, HardDriveDownload
+  Moon, Sun, Check, Database, HardDriveDownload
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 
@@ -184,11 +184,6 @@ export const Settings = () => {
                   <p className="text-sm text-gray-400 dark:text-[#9c9891] mt-0.5">
                     {profile.email}
                   </p>
-                  <div className="flex items-center gap-2 mt-2">
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-semibold bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 border border-emerald-200/50 dark:border-emerald-900/50">
-                      <ShieldCheck className="h-3 w-3" /> Verified
-                    </span>
-                  </div>
                 </div>
               </div>
             </div>
