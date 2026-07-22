@@ -314,7 +314,7 @@ export const Preparation = () => {
                 onClick={() => setActiveCategory('all')}
                 className={`px-3 py-1.5 rounded-lg font-bold transition-all whitespace-nowrap ${
                   activeCategory === 'all'
-                    ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-sm'
+                    ? 'bg-[#FEF2F2] dark:bg-[#302d2a] text-[#D7494C] dark:text-[#e8e3d9] border border-[#D7494C]/30 dark:border-[#3a3733] shadow-xs'
                     : 'text-slate-600 dark:text-[#9c9891] hover:bg-slate-200/50 dark:hover:bg-[#302d2a]'
                 }`}
               >
@@ -325,7 +325,7 @@ export const Preparation = () => {
                 onClick={() => setActiveCategory('Technical')}
                 className={`px-3 py-1.5 rounded-lg font-bold transition-all whitespace-nowrap ${
                   activeCategory === 'Technical'
-                    ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-sm'
+                    ? 'bg-[#FEF2F2] dark:bg-[#302d2a] text-[#D7494C] dark:text-[#e8e3d9] border border-[#D7494C]/30 dark:border-[#3a3733] shadow-xs'
                     : 'text-slate-600 dark:text-[#9c9891] hover:bg-slate-200/50 dark:hover:bg-[#302d2a]'
                 }`}
               >
@@ -336,7 +336,7 @@ export const Preparation = () => {
                 onClick={() => setActiveCategory('Behavioral')}
                 className={`px-3 py-1.5 rounded-lg font-bold transition-all whitespace-nowrap ${
                   activeCategory === 'Behavioral'
-                    ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-sm'
+                    ? 'bg-[#FEF2F2] dark:bg-[#302d2a] text-[#D7494C] dark:text-[#e8e3d9] border border-[#D7494C]/30 dark:border-[#3a3733] shadow-xs'
                     : 'text-slate-600 dark:text-[#9c9891] hover:bg-slate-200/50 dark:hover:bg-[#302d2a]'
                 }`}
               >
@@ -347,7 +347,7 @@ export const Preparation = () => {
                 onClick={() => setActiveCategory('System Design')}
                 className={`px-3 py-1.5 rounded-lg font-bold transition-all whitespace-nowrap ${
                   activeCategory === 'System Design'
-                    ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-sm'
+                    ? 'bg-[#FEF2F2] dark:bg-[#302d2a] text-[#D7494C] dark:text-[#e8e3d9] border border-[#D7494C]/30 dark:border-[#3a3733] shadow-xs'
                     : 'text-slate-600 dark:text-[#9c9891] hover:bg-slate-200/50 dark:hover:bg-[#302d2a]'
                 }`}
               >
@@ -397,21 +397,21 @@ export const Preparation = () => {
                       }}
                       className={`px-3 py-2.5 rounded-xl cursor-pointer transition-all duration-150 border group ${
                         selectedItemId === item.id
-                          ? 'bg-slate-900 text-white dark:bg-[#2e2b28] dark:text-[#e8e3d9] border-slate-900 dark:border-[#3a3733] shadow-sm'
-                          : 'bg-white/60 dark:bg-[#242120]/60 border-slate-200/80 dark:border-[#3a3733] hover:bg-slate-100 dark:hover:bg-[#191c28] text-slate-700 dark:text-[#9c9891]'
+                          ? 'bg-[#FEF2F2] text-[#C43538] border-[#D7494C]/40 dark:bg-[#2e2b28] dark:text-[#e8e3d9] dark:border-[#3a3733] shadow-xs'
+                          : 'bg-white/80 dark:bg-[#242120]/80 border-slate-200/80 dark:border-[#3a3733] hover:bg-slate-100 dark:hover:bg-[#2e2b28] text-slate-700 dark:text-[#9c9891]'
                       }`}
                     >
                       <div className="flex items-center gap-2.5">
                         <div className={`h-6 w-6 rounded-md flex items-center justify-center flex-shrink-0 font-bold text-xs ${
                           selectedItemId === item.id
-                            ? 'bg-white/20 text-white dark:bg-white dark:text-slate-950'
+                            ? 'bg-[#D7494C]/15 text-[#D7494C] dark:bg-[#302d2a] dark:text-[#e8e3d9]'
                             : 'bg-slate-100 dark:bg-[#2e2b28] text-slate-600 dark:text-[#9c9891] border border-slate-200 dark:border-[#3a3733]'
                         }`}>
                           {item.type === 'story' ? <BookOpen className="h-3 w-3" /> : <FileText className="h-3 w-3" />}
                         </div>
                         
                         <div className="flex-1 min-w-0">
-                          <h4 className={`font-semibold text-xs truncate ${selectedItemId === item.id ? 'text-white dark:text-[#e8e3d9]' : 'text-slate-800 dark:text-[#d4cfc6]'}`}>
+                          <h4 className={`font-semibold text-xs truncate ${selectedItemId === item.id ? 'text-[#C43538] dark:text-[#e8e3d9]' : 'text-slate-800 dark:text-[#d4cfc6]'}`}>
                             {item.title || 'Untitled Document'}
                           </h4>
                         </div>
