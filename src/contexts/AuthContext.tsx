@@ -100,13 +100,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     },
   };
 
-  const signUp = async (email: string, password: string, fullName: string) => {
-    console.log('Mock sign up - authentication disabled');
+  const signUp = async (_email: string, _password: string, _fullName: string) => {
+    console.log('Mock sign up - authentication disabled', { _email, _fullName });
   };
 
-  const signIn = async (email: string, password: string) => {
-    console.log('Mock sign in - authentication disabled');
+  const signIn = async (_email: string, _password: string) => {
+    console.log('Mock sign in - authentication disabled', { _email });
   };
+
 
   const signOut = async () => {
     console.log('Mock sign out - authentication disabled');

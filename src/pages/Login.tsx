@@ -1,11 +1,14 @@
 import { useState, FormEvent } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Eye, EyeOff, Briefcase } from 'lucide-react';
+import { Eye, EyeOff } from 'lucide-react';
 import toast from 'react-hot-toast';
+
 import { useAuth } from '../contexts/AuthContext';
 import { Button } from '../components/Button';
 import { Input } from '../components/Input';
+import { Logo } from '../components/Logo';
+
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -55,31 +58,30 @@ export const Login = () => {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 px-4">
+    <div className="relative min-h-screen w-screen flex items-center justify-center overflow-hidden p-4">
+      {/* Background ambient lighting effects */}
+      <div className="absolute top-1/4 left-1/4 h-80 w-80 rounded-full bg-blue-500/20 blur-3xl pointer-events-none" />
+      <div className="absolute bottom-1/4 right-1/4 h-80 w-80 rounded-full bg-teal-500/20 blur-3xl pointer-events-none" />
+
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="w-full max-w-md"
+        transition={{ duration: 0.4 }}
+        className="relative z-10 w-full max-w-md"
       >
-        <div className="mb-8 text-center">
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ delay: 0.2, type: 'spring' }}
-            className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full bg-blue-600"
-          >
-            <Briefcase className="h-8 w-8 text-white" />
-          </motion.div>
-          <h1 className="text-3xl font-bold text-gray-900">JobTrackr</h1>
-          <p className="mt-2 text-gray-600">Sign in to manage your job search</p>
+        <div className="mb-8 flex flex-col items-center text-center">
+          <Logo size="lg" />
+          <p className="mt-3 text-xs sm:text-sm font-medium text-slate-500 dark:text-zinc-400">
+            Sign in to access your applications pipeline & interview workspace
+          </p>
         </div>
 
-        <div className="rounded-2xl bg-white p-8 shadow-xl">
-          <form onSubmit={handleSubmit} className="space-y-6">
+
+        <div className="glass-card p-8 border border-white/80 dark:border-slate-700/80 shadow-2xl">
+          <form onSubmit={handleSubmit} className="space-y-5">
             <Input
               type="email"
-              label="Email"
+              label="Email Address"
               placeholder="you@example.com"
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -100,33 +102,35 @@ export const Login = () => {
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-10 text-gray-500 hover:text-gray-700"
+                className="absolute right-3.5 top-9 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
               >
-                {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
               </button>
             </div>
 
             <div className="flex items-center justify-between">
-              <label className="flex items-center">
+              <label className="flex items-center cursor-pointer">
                 <input
                   type="checkbox"
                   checked={formData.rememberMe}
                   onChange={(e) => setFormData({ ...formData, rememberMe: e.target.checked })}
-                  className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  className="h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
                 />
-                <span className="ml-2 text-sm text-gray-600">Remember me</span>
+                <span className="ml-2 text-xs font-semibold text-slate-600 dark:text-slate-400">
+                  Remember me
+                </span>
               </label>
             </div>
 
-            <Button type="submit" className="w-full" isLoading={isLoading}>
+            <Button type="submit" variant="primary" className="w-full py-3" isLoading={isLoading}>
               Sign In
             </Button>
           </form>
 
-          <div className="mt-6 text-center">
-            <p className="text-sm text-gray-600">
+          <div className="mt-6 text-center pt-4 border-t border-slate-200/60 dark:border-slate-700/60">
+            <p className="text-xs text-slate-600 dark:text-slate-400">
               Don't have an account?{' '}
-              <Link to="/register" className="font-medium text-blue-600 hover:text-blue-700">
+              <Link to="/register" className="font-bold text-blue-600 dark:text-blue-400 hover:underline">
                 Sign up
               </Link>
             </p>

@@ -44,30 +44,29 @@ export const Modal = ({ isOpen, onClose, title, children, size = 'md' }: ModalPr
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm"
+            className="fixed inset-0 z-40 bg-slate-950/80 backdrop-blur-sm"
           />
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto">
             <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
               transition={{ duration: 0.2 }}
-              className={`relative w-full ${sizes[size]} max-h-[90vh] flex flex-col bg-white rounded-xl shadow-2xl`}
+              className={`relative w-full ${sizes[size]} max-h-[90vh] flex flex-col bg-white dark:bg-[#09090b] border border-slate-200 dark:border-[#1f1f23] rounded-2xl shadow-2xl overflow-hidden !p-0`}
             >
-              <div className="flex items-center justify-between border-b border-gray-200 px-6 py-4">
-                <h2 className="text-xl font-semibold text-gray-900">{title}</h2>
+              <div className="flex items-center justify-between border-b border-slate-200 dark:border-[#1f1f23] px-6 py-4 bg-white dark:bg-[#09090b]">
+                <h2 className="text-lg font-extrabold tracking-tight text-slate-900 dark:text-zinc-100">{title}</h2>
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={onClose}
-                  className="!p-2"
+                  className="!p-1.5 text-slate-400 hover:text-slate-900 dark:hover:text-white rounded-xl"
                 >
-                  <X className="h-5 w-5" />
+                  <X className="h-4 w-4" />
                 </Button>
               </div>
-              <div className="flex-1 overflow-y-auto px-6 py-4">
-                {children}
-              </div>
+
+              <div className="p-6 overflow-y-auto flex-1">{children}</div>
             </motion.div>
           </div>
         </>

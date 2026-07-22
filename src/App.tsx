@@ -1,5 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { Toaster } from 'react-hot-toast';
+import { Toaster, ToastBar, toast } from 'react-hot-toast';
+import { X } from 'lucide-react';
+
 import { AuthProvider } from './contexts/AuthContext';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { ProtectedRoute } from './components/ProtectedRoute';
@@ -51,30 +53,40 @@ function App() {
             <Route path="/" element={<Navigate to="/dashboard" replace />} />
           </Routes>
           <Toaster
-            position="top-right"
+            position="bottom-right"
             toastOptions={{
-              duration: 3000,
+              duration: 2500,
               style: {
-                background: '#fff',
-                color: '#374151',
-                padding: '16px',
-                borderRadius: '8px',
-                boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
-              },
-              success: {
-                iconTheme: {
-                  primary: '#10b981',
-                  secondary: '#fff',
-                },
-              },
-              error: {
-                iconTheme: {
-                  primary: '#ef4444',
-                  secondary: '#fff',
-                },
+                background: '#16171d',
+                color: '#f8fafc',
+                border: '1px solid #2f303d',
+                borderRadius: '12px',
+                boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.4)',
+                fontSize: '12px',
+                fontWeight: '600',
               },
             }}
-          />
+          >
+            {(t) => (
+              <ToastBar toast={t}>
+                {({ icon, message }) => (
+                  <div className="flex items-center gap-2">
+                    {icon}
+                    <div className="text-xs font-semibold pr-1">{message}</div>
+                    {t.type !== 'loading' && (
+                      <button
+                        onClick={() => toast.dismiss(t.id)}
+                        className="ml-2 p-1 rounded-md text-slate-400 hover:text-white transition-colors"
+                        title="Dismiss"
+                      >
+                        <X className="h-3.5 w-3.5" />
+                      </button>
+                    )}
+                  </div>
+                )}
+              </ToastBar>
+            )}
+          </Toaster>
         </AuthProvider>
       </ThemeProvider>
     </BrowserRouter>
@@ -82,3 +94,4 @@ function App() {
 }
 
 export default App;
+

@@ -1,21 +1,25 @@
 import { HTMLAttributes, ReactNode } from 'react';
-import { motion } from 'framer-motion';
+import { motion, HTMLMotionProps } from 'framer-motion';
 
-interface CardProps extends HTMLAttributes<HTMLDivElement> {
+type BaseCardProps = Omit<
+  HTMLAttributes<HTMLDivElement>,
+  'onAnimationStart' | 'onDrag' | 'onDragStart' | 'onDragEnd'
+>;
+
+interface CardProps extends BaseCardProps {
   children: ReactNode;
   hover?: boolean;
 }
 
 export const Card = ({ children, hover = false, className = '', ...props }: CardProps) => {
-  const baseStyles = 'bg-white rounded-xl border border-gray-200 shadow-sm';
+  const baseStyles = 'glass-card p-6 relative overflow-hidden';
 
   if (hover) {
     return (
       <motion.div
-        whileHover={{ y: -2, boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1)' }}
-        transition={{ duration: 0.2 }}
-        className={`${baseStyles} ${className}`}
-        {...props}
+        whileHover={{ y: -4, transition: { duration: 0.2 } }}
+        className={`${baseStyles} glass-card-clickable ${className}`}
+        {...(props as HTMLMotionProps<'div'>)}
       >
         {children}
       </motion.div>

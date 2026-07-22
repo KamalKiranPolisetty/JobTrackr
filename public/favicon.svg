@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <rect width="32" height="32" rx="8" fill="#0f1015"/>
+  <rect width="30" height="30" x="1" y="1" rx="7" fill="#181922" stroke="#2f3042" stroke-width="1"/>
+  <!-- Angled Diamond Core -->
+  <path d="M16 6L25 15L16 24L7 15L16 6Z" fill="none" stroke="#818cf8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Inner Cross Spark -->
+  <path d="M16 10V20" stroke="#818cf8" stroke-width="2" stroke-linecap="round"/>
+  <path d="M11 15H21" stroke="#818cf8" stroke-width="2" stroke-linecap="round"/>
+  <!-- Center Core Dot -->
+  <circle cx="16" cy="15" r="1.5" fill="#ffffff"/>
+</svg>
