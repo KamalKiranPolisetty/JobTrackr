@@ -15,10 +15,13 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     localStorage.setItem('theme', theme);
+    const metaThemeColor = document.querySelector('meta[name="theme-color"]');
     if (theme === 'dark') {
       document.documentElement.classList.add('dark');
+      if (metaThemeColor) metaThemeColor.setAttribute('content', '#1c1917');
     } else {
       document.documentElement.classList.remove('dark');
+      if (metaThemeColor) metaThemeColor.setAttribute('content', '#f7f7f9');
     }
   }, [theme]);
 

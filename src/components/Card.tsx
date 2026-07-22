@@ -12,7 +12,7 @@ interface CardProps extends BaseCardProps {
 }
 
 export const Card = ({ children, hover = false, className = '', ...props }: CardProps) => {
-  const baseStyles = 'glass-card p-6 relative overflow-hidden';
+  const baseStyles = 'glass-card p-6 relative';
 
   if (hover) {
     return (

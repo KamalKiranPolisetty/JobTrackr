@@ -1,11 +1,21 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
-  <rect width="32" height="32" rx="8" fill="#0f1015"/>
-  <rect width="30" height="30" x="1" y="1" rx="7" fill="#181922" stroke="#2f3042" stroke-width="1"/>
-  <!-- Angled Diamond Core -->
-  <path d="M16 6L25 15L16 24L7 15L16 6Z" fill="none" stroke="#818cf8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-  <!-- Inner Cross Spark -->
-  <path d="M16 10V20" stroke="#818cf8" stroke-width="2" stroke-linecap="round"/>
-  <path d="M11 15H21" stroke="#818cf8" stroke-width="2" stroke-linecap="round"/>
-  <!-- Center Core Dot -->
-  <circle cx="16" cy="15" r="1.5" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36">
+  <!-- Bear red rounded bg -->
+  <rect width="36" height="36" rx="9" fill="#D7494C"/>
+  
+  <!-- Outer open arc -->
+  <path d="M25 18C25 21.866 21.866 25 18 25C14.134 25 11 21.866 11 18C11 14.134 14.134 11 18 11"
+    stroke="white" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+  
+  <!-- Inner open arc -->
+  <path d="M22 18C22 20.209 20.209 22 18 22C15.791 22 14 20.209 14 18C14 15.791 15.791 14 18 14"
+    stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-opacity="0.65" fill="none"/>
+  
+  <!-- Arrow shaft -->
+  <line x1="18" y1="18" x2="18" y2="9" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+  
+  <!-- Arrow head -->
+  <polyline points="15,12 18,9 21,12" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  
+  <!-- Center dot -->
+  <circle cx="18" cy="18" r="1.5" fill="white"/>
 </svg>

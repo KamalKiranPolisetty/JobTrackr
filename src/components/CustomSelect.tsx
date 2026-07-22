@@ -43,31 +43,31 @@ export const CustomSelect: React.FC<CustomSelectProps> = ({
   }, []);
 
   return (
-    <div ref={containerRef} className={`relative inline-block ${className}`}>
+    <div ref={containerRef} className={`relative inline-block ${isOpen ? 'z-50' : 'z-10'} ${className}`}>
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className={`flex items-center justify-between gap-2 rounded-xl font-bold transition-all border shadow-sm ${
+        className={`w-full flex items-center justify-between gap-2 rounded-xl font-semibold transition-all border ${
           size === 'sm'
-            ? 'px-2.5 py-1 text-xs'
+            ? 'px-3 py-2 text-xs'
             : 'px-3.5 py-2 text-xs sm:text-sm'
-        } bg-white/90 dark:bg-[#1f202a] text-slate-800 dark:text-zinc-100 border-slate-200/90 dark:border-[#2f303d] hover:bg-slate-100 dark:hover:bg-[#282936] focus:outline-none`}
+        } bg-white dark:bg-[#2e2b28] text-gray-700 dark:text-[#d4cfc6] border-gray-200 dark:border-[#3a3733] hover:bg-gray-50 dark:hover:bg-[#302d2a] focus:outline-none shadow-sm`}
       >
         <span className="flex items-center gap-1.5 truncate">
-          {selectedOption?.icon && <selectedOption.icon className="h-3.5 w-3.5 text-slate-400" />}
+          {selectedOption?.icon && <selectedOption.icon className="h-3.5 w-3.5 text-gray-400" />}
           {selectedOption?.label || placeholder}
         </span>
-        <ChevronDown className={`h-3.5 w-3.5 text-slate-400 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
+        <ChevronDown className={`h-3.5 w-3.5 text-gray-400 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
       </button>
 
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -4, scale: 0.96 }}
+            initial={{ opacity: 0, y: -4, scale: 0.97 }}
             animate={{ opacity: 1, y: 4, scale: 1 }}
-            exit={{ opacity: 0, y: -4, scale: 0.96 }}
-            transition={{ duration: 0.12 }}
-            className={`absolute ${align === 'right' ? 'right-0' : 'left-0'} z-50 mt-1 min-w-[160px] max-h-64 overflow-y-auto rounded-xl p-1.5 bg-white dark:bg-[#16171d] border border-slate-200 dark:border-[#2f303d] shadow-2xl backdrop-blur-2xl space-y-0.5`}
+            exit={{ opacity: 0, y: -4, scale: 0.97 }}
+            transition={{ duration: 0.1 }}
+            className={`absolute ${align === 'right' ? 'right-0' : 'left-0'} top-full z-50 mt-1 min-w-[180px] max-h-64 overflow-y-auto rounded-xl p-1.5 bg-white dark:bg-[#242120] border border-gray-100 dark:border-[#3a3733] shadow-xl space-y-0.5`}
           >
             {options.map((opt) => {
               const isSelected = opt.value === value;
@@ -79,17 +79,17 @@ export const CustomSelect: React.FC<CustomSelectProps> = ({
                     onChange(opt.value);
                     setIsOpen(false);
                   }}
-                  className={`w-full flex items-center justify-between px-3 py-2 text-xs font-bold rounded-lg transition-colors whitespace-nowrap ${
+                  className={`w-full flex items-center justify-between px-3 py-2 text-xs font-medium rounded-lg transition-colors whitespace-nowrap ${
                     isSelected
-                      ? 'bg-slate-900 text-white dark:bg-[#252634] dark:text-white font-extrabold'
-                      : 'text-slate-700 dark:text-zinc-300 hover:bg-slate-100 dark:hover:bg-[#1f202a]'
+                      ? 'bg-[#FEF2F2] dark:bg-[#D7494C]/12 text-[#C43538] dark:text-[#e05c5f]'
+                      : 'text-gray-700 dark:text-[#b8b3aa] hover:bg-gray-50 dark:hover:bg-[#302d2a]'
                   }`}
                 >
                   <span className="flex items-center gap-2 truncate">
-                    {opt.icon && <opt.icon className="h-3.5 w-3.5 text-slate-400" />}
+                    {opt.icon && <opt.icon className="h-3.5 w-3.5 text-gray-400" />}
                     {opt.label}
                   </span>
-                  {isSelected && <Check className="h-3.5 w-3.5 text-indigo-500 dark:text-indigo-400 ml-2" />}
+                  {isSelected && <Check className="h-3.5 w-3.5 text-[#D7494C] dark:text-[#e05c5f] ml-2 flex-shrink-0" />}
                 </button>
               );
             })}

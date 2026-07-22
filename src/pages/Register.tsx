@@ -78,7 +78,7 @@ export const Register = () => {
     <div className="relative min-h-screen w-screen flex items-center justify-center overflow-hidden p-4 py-12">
       {/* Background ambient lighting effects */}
       <div className="absolute top-1/4 left-1/4 h-80 w-80 rounded-full bg-blue-500/20 blur-3xl pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 h-80 w-80 rounded-full bg-indigo-500/20 blur-3xl pointer-events-none" />
+      <div className="absolute bottom-1/4 right-1/4 h-80 w-80 rounded-full bg-[#FEF2F2]0/20 blur-3xl pointer-events-none" />
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -88,7 +88,7 @@ export const Register = () => {
       >
         <div className="mb-8 flex flex-col items-center text-center">
           <Logo size="lg" />
-          <p className="mt-3 text-xs sm:text-sm font-medium text-slate-500 dark:text-zinc-400">
+          <p className="mt-3 text-xs sm:text-sm font-medium text-slate-500 dark:text-[#9c9891]">
             Create your account to supercharge your career
           </p>
         </div>
@@ -151,7 +151,7 @@ export const Register = () => {
           </form>
 
           <div className="mt-6 text-center pt-4 border-t border-slate-200/60 dark:border-slate-700/60">
-            <p className="text-xs text-slate-600 dark:text-slate-400">
+            <p className="text-xs text-slate-600 dark:text-[#9c9891]">
               Already have an account?{' '}
               <Link to="/login" className="font-bold text-blue-600 dark:text-blue-400 hover:underline">
                 Sign in

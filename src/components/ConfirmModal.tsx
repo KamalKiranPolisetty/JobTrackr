@@ -32,15 +32,16 @@ export const ConfirmModal = ({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={onClose}
-          className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm"
+          className="fixed inset-0 bg-black/40 backdrop-blur-sm"
         />
 
         {/* Modal Card */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.95, y: 10 }}
+          initial={{ opacity: 0, scale: 0.96, y: 10 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.95, y: 10 }}
-          className="relative z-10 w-full max-w-md bg-white dark:bg-[#16171d] border border-slate-200 dark:border-[#24252e] rounded-2xl shadow-2xl p-6 overflow-hidden"
+          exit={{ opacity: 0, scale: 0.96, y: 10 }}
+          transition={{ duration: 0.15 }}
+          className="relative z-10 w-full max-w-md bg-white dark:bg-[#242120] border border-gray-100 dark:border-[#3a3733] rounded-2xl shadow-xl p-6 overflow-hidden"
         >
           <div className="flex items-start gap-4">
             <div className="h-10 w-10 rounded-xl bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-900/50 flex items-center justify-center flex-shrink-0">
@@ -48,23 +49,23 @@ export const ConfirmModal = ({
             </div>
 
             <div className="flex-1">
-              <h3 className="text-base font-extrabold text-slate-900 dark:text-zinc-100">
+              <h3 className="text-base font-semibold text-gray-900 dark:text-[#e8e3d9]">
                 {title}
               </h3>
-              <p className="text-xs font-medium text-slate-500 dark:text-zinc-400 mt-1.5 leading-relaxed">
+              <p className="text-sm text-gray-500 dark:text-[#9c9891] mt-1.5 leading-relaxed">
                 {message}
               </p>
             </div>
 
             <button
               onClick={onClose}
-              className="p-1 text-slate-400 hover:text-slate-900 dark:hover:text-white rounded-lg transition-colors"
+              className="p-1 text-gray-400 hover:text-gray-700 dark:hover:text-white rounded-lg transition-colors"
             >
               <X className="h-4 w-4" />
             </button>
           </div>
 
-          <div className="flex justify-end gap-3 mt-6 pt-4 border-t border-slate-100 dark:border-[#24252e]">
+          <div className="flex justify-end gap-2.5 mt-5 pt-4 border-t border-gray-100 dark:border-[#3a3733]">
             <Button type="button" variant="ghost" size="sm" onClick={onClose}>
               {cancelText}
             </Button>

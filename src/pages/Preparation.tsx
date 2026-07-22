@@ -270,7 +270,7 @@ export const Preparation = () => {
         <div className={`w-full md:w-80 lg:w-96 flex-shrink-0 flex flex-col space-y-4 min-h-0 ${isFullscreen ? 'hidden' : 'flex'}`}>
           
           {/* Navigator Header Card */}
-          <div className="p-4 bg-white dark:bg-[#16171d] border border-slate-200 dark:border-[#24252e] rounded-2xl flex-shrink-0 space-y-3.5 shadow-sm">
+          <div className="p-4 bg-white dark:bg-[#242120] border border-slate-200 dark:border-[#3a3733] rounded-2xl flex-shrink-0 space-y-3.5 shadow-sm">
             
             {/* Header Title + Explicit Create Buttons */}
             <div className="flex items-center justify-between">
@@ -302,7 +302,7 @@ export const Preparation = () => {
               />
               <kbd 
                 onClick={() => searchInputRef.current?.focus()}
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 px-1.5 py-0.5 text-[10px] font-mono font-bold text-slate-400 dark:text-zinc-500 bg-slate-100 dark:bg-[#1f202a] border border-slate-200 dark:border-[#2f303d] rounded cursor-pointer"
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 px-1.5 py-0.5 text-[10px] font-mono font-bold text-slate-400 dark:text-[#6b6560] bg-slate-100 dark:bg-[#2e2b28] border border-slate-200 dark:border-[#3a3733] rounded cursor-pointer"
               >
                 ⌘K
               </kbd>
@@ -315,7 +315,7 @@ export const Preparation = () => {
                 className={`px-3 py-1.5 rounded-lg font-bold transition-all whitespace-nowrap ${
                   activeCategory === 'all'
                     ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-sm'
-                    : 'text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-[#1f202a]'
+                    : 'text-slate-600 dark:text-[#9c9891] hover:bg-slate-200/50 dark:hover:bg-[#302d2a]'
                 }`}
               >
                 All
@@ -326,7 +326,7 @@ export const Preparation = () => {
                 className={`px-3 py-1.5 rounded-lg font-bold transition-all whitespace-nowrap ${
                   activeCategory === 'Technical'
                     ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-sm'
-                    : 'text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-[#1f202a]'
+                    : 'text-slate-600 dark:text-[#9c9891] hover:bg-slate-200/50 dark:hover:bg-[#302d2a]'
                 }`}
               >
                 Technical
@@ -337,7 +337,7 @@ export const Preparation = () => {
                 className={`px-3 py-1.5 rounded-lg font-bold transition-all whitespace-nowrap ${
                   activeCategory === 'Behavioral'
                     ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-sm'
-                    : 'text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-[#1f202a]'
+                    : 'text-slate-600 dark:text-[#9c9891] hover:bg-slate-200/50 dark:hover:bg-[#302d2a]'
                 }`}
               >
                 Behavioral
@@ -348,7 +348,7 @@ export const Preparation = () => {
                 className={`px-3 py-1.5 rounded-lg font-bold transition-all whitespace-nowrap ${
                   activeCategory === 'System Design'
                     ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-sm'
-                    : 'text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-[#1f202a]'
+                    : 'text-slate-600 dark:text-[#9c9891] hover:bg-slate-200/50 dark:hover:bg-[#302d2a]'
                 }`}
               >
                 System Design
@@ -361,7 +361,7 @@ export const Preparation = () => {
             <span>{activeCategory === 'all' ? 'NOTES & STORIES' : activeCategory.toUpperCase()} ({filteredItems.length})</span>
             
             <div className="flex items-center gap-1.5 normal-case font-medium">
-              <span className="text-slate-400 dark:text-zinc-500 font-bold">Sort:</span>
+              <span className="text-slate-400 dark:text-[#6b6560] font-bold">Sort:</span>
               <CustomSelect
                 options={SORT_OPTIONS}
                 value={sortBy}
@@ -383,7 +383,7 @@ export const Preparation = () => {
               groupedItems.map((group) => (
                 <div key={group.section} className="space-y-1">
                   {/* ChatGPT Section Header */}
-                  <h4 className="px-2 py-1 text-[11px] font-extrabold text-slate-400 dark:text-zinc-500 uppercase tracking-wider">
+                  <h4 className="px-2 py-1 text-[11px] font-extrabold text-slate-400 dark:text-[#6b6560] uppercase tracking-wider">
                     {group.section}
                   </h4>
 
@@ -397,21 +397,21 @@ export const Preparation = () => {
                       }}
                       className={`px-3 py-2.5 rounded-xl cursor-pointer transition-all duration-150 border group ${
                         selectedItemId === item.id
-                          ? 'bg-slate-900 text-white dark:bg-[#1f202a] dark:text-zinc-100 border-slate-900 dark:border-[#2f303d] shadow-sm'
-                          : 'bg-white/60 dark:bg-[#16171d]/60 border-slate-200/80 dark:border-[#24252e] hover:bg-slate-100 dark:hover:bg-[#16171d] text-slate-700 dark:text-zinc-400'
+                          ? 'bg-slate-900 text-white dark:bg-[#2e2b28] dark:text-[#e8e3d9] border-slate-900 dark:border-[#3a3733] shadow-sm'
+                          : 'bg-white/60 dark:bg-[#242120]/60 border-slate-200/80 dark:border-[#3a3733] hover:bg-slate-100 dark:hover:bg-[#191c28] text-slate-700 dark:text-[#9c9891]'
                       }`}
                     >
                       <div className="flex items-center gap-2.5">
                         <div className={`h-6 w-6 rounded-md flex items-center justify-center flex-shrink-0 font-bold text-xs ${
                           selectedItemId === item.id
                             ? 'bg-white/20 text-white dark:bg-white dark:text-slate-950'
-                            : 'bg-slate-100 dark:bg-[#1f202a] text-slate-600 dark:text-zinc-400 border border-slate-200 dark:border-[#2f303d]'
+                            : 'bg-slate-100 dark:bg-[#2e2b28] text-slate-600 dark:text-[#9c9891] border border-slate-200 dark:border-[#3a3733]'
                         }`}>
                           {item.type === 'story' ? <BookOpen className="h-3 w-3" /> : <FileText className="h-3 w-3" />}
                         </div>
                         
                         <div className="flex-1 min-w-0">
-                          <h4 className={`font-semibold text-xs truncate ${selectedItemId === item.id ? 'text-white dark:text-zinc-100' : 'text-slate-800 dark:text-zinc-200'}`}>
+                          <h4 className={`font-semibold text-xs truncate ${selectedItemId === item.id ? 'text-white dark:text-[#e8e3d9]' : 'text-slate-800 dark:text-[#d4cfc6]'}`}>
                             {item.title || 'Untitled Document'}
                           </h4>
                         </div>
@@ -422,7 +422,7 @@ export const Preparation = () => {
                           title={item.pinned ? 'Unpin Document' : 'Pin Document to Top'}
                           className={`p-1 rounded-md transition-colors ${
                             item.pinned
-                              ? 'text-indigo-500 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/40'
+                              ? 'text-[#D7494C] dark:text-[#e05c5f] bg-[#FEF2F2] dark:bg-[#D7494C]/12'
                               : 'opacity-0 group-hover:opacity-100 text-slate-300 dark:text-zinc-600 hover:text-slate-500 dark:hover:text-zinc-300'
                           }`}
                         >
@@ -444,20 +444,20 @@ export const Preparation = () => {
           {!activeDoc ? (
             <Card className="flex-1 flex flex-col items-center justify-center p-12 text-center border-dashed">
               <Sparkles className="h-12 w-12 text-slate-400 mb-3" />
-              <h3 className="text-base font-bold text-slate-800 dark:text-slate-200">No document selected</h3>
+              <h3 className="text-base font-bold text-slate-800 dark:text-[#d4cfc6]">No document selected</h3>
               <p className="text-sm text-slate-500 mt-1 max-w-sm">
                 Select a document from the left navigator or click + STAR Story to start writing.
               </p>
             </Card>
           ) : (
-            <Card className="flex-1 flex flex-col min-h-0 w-full h-full !p-0 bg-white dark:bg-[#16171d] border border-slate-200 dark:border-[#24252e] shadow-sm overflow-hidden rounded-2xl">
+            <Card className="flex-1 flex flex-col min-h-0 w-full h-full !p-0 bg-white dark:bg-[#242120] border border-slate-200 dark:border-[#3a3733] shadow-sm overflow-hidden rounded-2xl">
 
               {/* Canvas Header Bar */}
-              <div className="flex items-center justify-between border-b border-slate-200 dark:border-[#24252e] px-8 py-4 bg-white dark:bg-[#16171d] flex-shrink-0">
+              <div className="flex items-center justify-between border-b border-slate-200 dark:border-[#3a3733] px-8 py-4 bg-white dark:bg-[#242120] flex-shrink-0">
                 <div className="flex items-center gap-3">
                   <button
                     onClick={() => setIsFullscreen(!isFullscreen)}
-                    className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-zinc-200 hover:bg-slate-100 dark:hover:bg-[#1f202a] transition-colors"
+                    className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-zinc-200 hover:bg-slate-100 dark:hover:bg-[#302d2a] transition-colors"
                     title="Toggle Navigator Sidebar"
                   >
                     <ChevronLeft className="h-4 w-4" />
@@ -521,26 +521,26 @@ export const Preparation = () => {
                       placeholder="Untitled Document..."
                       value={activeDoc.title}
                       onChange={(e) => handleDocChange('title', e.target.value)}
-                      className="w-full text-2xl sm:text-3xl font-extrabold bg-transparent text-slate-900 dark:text-zinc-100 placeholder:text-slate-300 dark:placeholder:text-zinc-700 focus:outline-none tracking-tight border-b border-transparent focus:border-slate-300 dark:focus:border-zinc-800 pb-2 transition-all"
+                      className="w-full text-2xl sm:text-3xl font-extrabold bg-transparent text-slate-900 dark:text-[#e8e3d9] placeholder:text-slate-300 dark:placeholder:text-zinc-700 focus:outline-none tracking-tight border-b border-transparent focus:border-slate-300 dark:focus:border-zinc-800 pb-2 transition-all"
                     />
                     <p className="text-xs text-slate-400 font-medium mt-1.5">
                       Last updated today at {new Date(activeDoc.updated_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                     </p>
-                    <hr className="mt-4 border-slate-200/80 dark:border-[#24252e]" />
+                    <hr className="mt-4 border-slate-200/80 dark:border-[#3a3733]" />
                   </div>
 
                   {/* Pure Notion Document Body with Auto-expanding Textareas */}
                   {activeDoc.type === 'story' ? (
-                    <div className="space-y-5 pt-2">
+                    <div className="flex flex-col space-y-4 pt-2 flex-1 min-h-[550px]">
                       {/* Situation Block */}
-                      <div className="p-4 sm:p-5 rounded-2xl bg-slate-50/60 dark:bg-[#1a1b24] border border-slate-200/80 dark:border-[#242533] space-y-2.5 transition-all">
+                      <div className="flex-1 p-5 rounded-2xl bg-slate-50/60 dark:bg-[#2e2b28] border border-slate-200/80 dark:border-[#3a3733] flex flex-col justify-between space-y-3 transition-all min-h-[120px]">
                         <div className="flex items-center justify-between">
-                          <span className="px-2.5 py-1 rounded-md text-[11px] font-extrabold tracking-wider uppercase bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 border border-indigo-200/50 dark:border-indigo-900/50">
+                          <span className="px-2.5 py-0.5 rounded-md text-[11px] font-semibold tracking-wider uppercase bg-gray-100 dark:bg-[#302d2a] text-gray-600 dark:text-[#9c9891] border border-gray-200/80 dark:border-[#3a3733]">
                             SITUATION
                           </span>
                         </div>
                         <textarea
-                          rows={2}
+                          rows={3}
                           placeholder="Describe the background and challenge you encountered..."
                           value={activeDoc.situation}
                           onChange={(e) => {
@@ -548,19 +548,19 @@ export const Preparation = () => {
                             autoResizeTextarea(e.target);
                           }}
                           onFocus={(e) => autoResizeTextarea(e.target)}
-                          className="w-full bg-transparent text-sm sm:text-base font-normal text-slate-900 dark:text-zinc-100 placeholder:text-slate-400 dark:placeholder:text-zinc-600 focus:outline-none resize-none leading-relaxed overflow-hidden"
+                          className="w-full bg-transparent text-sm sm:text-base font-normal text-slate-900 dark:text-[#e8e3d9] placeholder:text-slate-400 dark:placeholder:text-zinc-600 focus:outline-none resize-none leading-relaxed flex-1"
                         />
                       </div>
 
                       {/* Task Block */}
-                      <div className="p-4 sm:p-5 rounded-2xl bg-slate-50/60 dark:bg-[#1a1b24] border border-slate-200/80 dark:border-[#242533] space-y-2.5 transition-all">
+                      <div className="flex-1 p-5 rounded-2xl bg-slate-50/60 dark:bg-[#2e2b28] border border-slate-200/80 dark:border-[#3a3733] flex flex-col justify-between space-y-3 transition-all min-h-[120px]">
                         <div className="flex items-center justify-between">
-                          <span className="px-2.5 py-1 rounded-md text-[11px] font-extrabold tracking-wider uppercase bg-amber-50 dark:bg-amber-950/50 text-amber-600 dark:text-amber-400 border border-amber-200/50 dark:border-amber-900/50">
+                          <span className="px-2.5 py-0.5 rounded-md text-[11px] font-semibold tracking-wider uppercase bg-gray-100 dark:bg-[#302d2a] text-gray-600 dark:text-[#9c9891] border border-gray-200/80 dark:border-[#3a3733]">
                             TASK
                           </span>
                         </div>
                         <textarea
-                          rows={2}
+                          rows={3}
                           placeholder="What was your specific goal or responsibility?..."
                           value={activeDoc.task}
                           onChange={(e) => {
@@ -568,19 +568,19 @@ export const Preparation = () => {
                             autoResizeTextarea(e.target);
                           }}
                           onFocus={(e) => autoResizeTextarea(e.target)}
-                          className="w-full bg-transparent text-sm sm:text-base font-normal text-slate-900 dark:text-zinc-100 placeholder:text-slate-400 dark:placeholder:text-zinc-600 focus:outline-none resize-none leading-relaxed overflow-hidden"
+                          className="w-full bg-transparent text-sm sm:text-base font-normal text-slate-900 dark:text-[#e8e3d9] placeholder:text-slate-400 dark:placeholder:text-zinc-600 focus:outline-none resize-none leading-relaxed flex-1"
                         />
                       </div>
 
                       {/* Action Block */}
-                      <div className="p-4 sm:p-5 rounded-2xl bg-slate-50/60 dark:bg-[#1a1b24] border border-slate-200/80 dark:border-[#242533] space-y-2.5 transition-all">
+                      <div className="flex-1 p-5 rounded-2xl bg-slate-50/60 dark:bg-[#2e2b28] border border-slate-200/80 dark:border-[#3a3733] flex flex-col justify-between space-y-3 transition-all min-h-[130px]">
                         <div className="flex items-center justify-between">
-                          <span className="px-2.5 py-1 rounded-md text-[11px] font-extrabold tracking-wider uppercase bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 border border-emerald-200/50 dark:border-emerald-900/50">
+                          <span className="px-2.5 py-0.5 rounded-md text-[11px] font-semibold tracking-wider uppercase bg-gray-100 dark:bg-[#302d2a] text-gray-600 dark:text-[#9c9891] border border-gray-200/80 dark:border-[#3a3733]">
                             ACTION
                           </span>
                         </div>
                         <textarea
-                          rows={3}
+                          rows={4}
                           placeholder="What specific actions did you drive to resolve the challenge?..."
                           value={activeDoc.action}
                           onChange={(e) => {
@@ -588,19 +588,19 @@ export const Preparation = () => {
                             autoResizeTextarea(e.target);
                           }}
                           onFocus={(e) => autoResizeTextarea(e.target)}
-                          className="w-full bg-transparent text-sm sm:text-base font-normal text-slate-900 dark:text-zinc-100 placeholder:text-slate-400 dark:placeholder:text-zinc-600 focus:outline-none resize-none leading-relaxed overflow-hidden"
+                          className="w-full bg-transparent text-sm sm:text-base font-normal text-slate-900 dark:text-[#e8e3d9] placeholder:text-slate-400 dark:placeholder:text-zinc-600 focus:outline-none resize-none leading-relaxed flex-1"
                         />
                       </div>
 
                       {/* Result Block */}
-                      <div className="p-4 sm:p-5 rounded-2xl bg-slate-50/60 dark:bg-[#1a1b24] border border-slate-200/80 dark:border-[#242533] space-y-2.5 transition-all">
+                      <div className="flex-1 p-5 rounded-2xl bg-slate-50/60 dark:bg-[#2e2b28] border border-slate-200/80 dark:border-[#3a3733] flex flex-col justify-between space-y-3 transition-all min-h-[120px]">
                         <div className="flex items-center justify-between">
-                          <span className="px-2.5 py-1 rounded-md text-[11px] font-extrabold tracking-wider uppercase bg-purple-50 dark:bg-purple-950/50 text-purple-600 dark:text-purple-400 border border-purple-200/50 dark:border-purple-900/50">
+                          <span className="px-2.5 py-0.5 rounded-md text-[11px] font-semibold tracking-wider uppercase bg-gray-100 dark:bg-[#302d2a] text-gray-600 dark:text-[#9c9891] border border-gray-200/80 dark:border-[#3a3733]">
                             RESULT
                           </span>
                         </div>
                         <textarea
-                          rows={2}
+                          rows={3}
                           placeholder="What was the measurable outcome? e.g. Reduced latency by 98%..."
                           value={activeDoc.result}
                           onChange={(e) => {
@@ -608,7 +608,7 @@ export const Preparation = () => {
                             autoResizeTextarea(e.target);
                           }}
                           onFocus={(e) => autoResizeTextarea(e.target)}
-                          className="w-full bg-transparent text-sm sm:text-base font-normal text-slate-900 dark:text-zinc-100 placeholder:text-slate-400 dark:placeholder:text-zinc-600 focus:outline-none resize-none leading-relaxed overflow-hidden"
+                          className="w-full bg-transparent text-sm sm:text-base font-normal text-slate-900 dark:text-[#e8e3d9] placeholder:text-slate-400 dark:placeholder:text-zinc-600 focus:outline-none resize-none leading-relaxed flex-1"
                         />
                       </div>
                     </div>
@@ -626,7 +626,7 @@ export const Preparation = () => {
                         placeholder="Start typing your technical notes, system design blueprints, or markdown documentation here..."
                         value={activeDoc.content}
                         onChange={(e) => handleDocChange('content', e.target.value)}
-                        className="w-full bg-transparent text-sm sm:text-base font-mono leading-relaxed text-slate-900 dark:text-zinc-100 placeholder:text-slate-400 dark:placeholder:text-zinc-600 focus:outline-none resize-none"
+                        className="w-full bg-transparent text-sm sm:text-base font-mono leading-relaxed text-slate-900 dark:text-[#e8e3d9] placeholder:text-slate-400 dark:placeholder:text-zinc-600 focus:outline-none resize-none"
                       />
                     </div>
                   )}

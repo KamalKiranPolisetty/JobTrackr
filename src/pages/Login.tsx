@@ -71,7 +71,7 @@ export const Login = () => {
       >
         <div className="mb-8 flex flex-col items-center text-center">
           <Logo size="lg" />
-          <p className="mt-3 text-xs sm:text-sm font-medium text-slate-500 dark:text-zinc-400">
+          <p className="mt-3 text-xs sm:text-sm font-medium text-slate-500 dark:text-[#9c9891]">
             Sign in to access your applications pipeline & interview workspace
           </p>
         </div>
@@ -116,7 +116,7 @@ export const Login = () => {
                   onChange={(e) => setFormData({ ...formData, rememberMe: e.target.checked })}
                   className="h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
                 />
-                <span className="ml-2 text-xs font-semibold text-slate-600 dark:text-slate-400">
+                <span className="ml-2 text-xs font-semibold text-slate-600 dark:text-[#9c9891]">
                   Remember me
                 </span>
               </label>
@@ -128,7 +128,7 @@ export const Login = () => {
           </form>
 
           <div className="mt-6 text-center pt-4 border-t border-slate-200/60 dark:border-slate-700/60">
-            <p className="text-xs text-slate-600 dark:text-slate-400">
+            <p className="text-xs text-slate-600 dark:text-[#9c9891]">
               Don't have an account?{' '}
               <Link to="/register" className="font-bold text-blue-600 dark:text-blue-400 hover:underline">
                 Sign up
