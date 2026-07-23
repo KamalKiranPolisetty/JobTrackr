@@ -1,87 +1,9 @@
-// import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-// import { User } from '@supabase/supabase-js';
-// import { supabase } from '../lib/supabase';
-
-// interface AuthContextType {
-//   user: User | null;
-//   loading: boolean;
-//   signUp: (email: string, password: string, fullName: string) => Promise<void>;
-//   signIn: (email: string, password: string) => Promise<void>;
-//   signOut: () => Promise<void>;
-// }
-
-// const AuthContext = createContext<AuthContextType | undefined>(undefined);
-
-// export const AuthProvider = ({ children }: { children: ReactNode }) => {
-//   const [user, setUser] = useState<User | null>(null);
-//   const [loading, setLoading] = useState(true);
-
-//   useEffect(() => {
-//     supabase.auth.getSession().then(({ data: { session } }) => {
-//       setUser(session?.user ?? null);
-//       setLoading(false);
-//     });
-
-//     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-//       (async () => {
-//         if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
-//           setUser(session?.user ?? null);
-//         } else if (event === 'SIGNED_OUT') {
-//           setUser(null);
-//         }
-//       })();
-//     });
-
-//     return () => subscription.unsubscribe();
-//   }, []);
-
-//   const signUp = async (email: string, password: string, fullName: string) => {
-//     const { error } = await supabase.auth.signUp({
-//       email,
-//       password,
-//       options: {
-//         data: {
-//           full_name: fullName,
-//         },
-//       },
-//     });
-
-//     if (error) throw error;
-//   };
-
-//   const signIn = async (email: string, password: string) => {
-//     const { error } = await supabase.auth.signInWithPassword({
-//       email,
-//       password,
-//     });
-
-//     if (error) throw error;
-//   };
-
-//   const signOut = async () => {
-//     const { error } = await supabase.auth.signOut();
-//     if (error) throw error;
-//   };
-
-//   return (
-//     <AuthContext.Provider value={{ user, loading, signUp, signIn, signOut }}>
-//       {children}
-//     </AuthContext.Provider>
-//   );
-// };
-
-// export const useAuth = () => {
-//   const context = useContext(AuthContext);
-//   if (context === undefined) {
-//     throw new Error('useAuth must be used within an AuthProvider');
-//   }
-//   return context;
-// };
-
-import { createContext, useContext, ReactNode } from 'react';
+import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import { User } from '@supabase/supabase-js';
+import { supabase, isSupabaseConfigured } from '../lib/supabase';
 
 interface AuthContextType {
-  user: any;
+  user: User | { id: string; email: string; user_metadata?: { full_name?: string } } | null;
   loading: boolean;
   signUp: (email: string, password: string, fullName: string) => Promise<void>;
   signIn: (email: string, password: string) => Promise<void>;
@@ -91,38 +13,63 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  // Mock user - always logged in as demo user
-  const mockUser = {
-    id: 'mock-user-123',
-    email: 'demo@example.com',
-    user_metadata: {
-      full_name: 'Demo User',
-    },
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!isSupabaseConfigured()) {
+      setLoading(false);
+      return;
+    }
+
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+      setLoading(false);
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+      setLoading(false);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const signUp = async (email: string, password: string, fullName: string) => {
+    if (!isSupabaseConfigured()) return;
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: {
+          full_name: fullName,
+        },
+      },
+    });
+
+    if (error) throw error;
   };
 
-  const signUp = async (_email: string, _password: string, _fullName: string) => {
-    console.log('Mock sign up - authentication disabled', { _email, _fullName });
-  };
+  const signIn = async (email: string, password: string) => {
+    if (!isSupabaseConfigured()) return;
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
 
-  const signIn = async (_email: string, _password: string) => {
-    console.log('Mock sign in - authentication disabled', { _email });
+    if (error) throw error;
   };
-
 
   const signOut = async () => {
-    console.log('Mock sign out - authentication disabled');
+    if (isSupabaseConfigured()) {
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
+    }
+    setUser(null);
   };
 
   return (
-    <AuthContext.Provider 
-      value={{ 
-        user: mockUser, 
-        loading: false, 
-        signUp, 
-        signIn, 
-        signOut 
-      }}
-    >
+    <AuthContext.Provider value={{ user, loading, signUp, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   );

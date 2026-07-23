@@ -47,21 +47,21 @@ export const Settings = () => {
       if (data) {
         setProfile((prev) => ({
           ...prev,
-          full_name: data.full_name || 'Demo User',
-          email: data.email || user.email || 'demo@example.com',
+          full_name: data.full_name || user.user_metadata?.full_name || 'User',
+          email: data.email || user.email || '',
         }));
       } else {
         setProfile((prev) => ({
           ...prev,
-          full_name: 'Demo User',
-          email: user.email || 'demo@example.com',
+          full_name: user.user_metadata?.full_name || 'User',
+          email: user.email || '',
         }));
       }
     } catch {
       setProfile((prev) => ({
         ...prev,
-        full_name: 'Demo User',
-        email: user?.email || 'demo@example.com',
+        full_name: user?.user_metadata?.full_name || 'User',
+        email: user?.email || '',
       }));
     }
   };
@@ -175,11 +175,11 @@ export const Settings = () => {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-gray-100 dark:border-[#3a3733]">
               <div className="flex items-center gap-4">
                 <div className="h-14 w-14 rounded-2xl bg-[#D7494C] text-white flex items-center justify-center text-xl font-bold shadow-sm flex-shrink-0">
-                  {profile.full_name.charAt(0) || 'D'}
+                  {profile.full_name.charAt(0) || 'U'}
                 </div>
                 <div>
                   <h3 className="text-base font-semibold text-gray-900 dark:text-white">
-                    {profile.full_name || 'Demo User'}
+                    {profile.full_name || 'User'}
                   </h3>
                   <p className="text-sm text-gray-400 dark:text-[#9c9891] mt-0.5">
                     {profile.email}
