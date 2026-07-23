@@ -187,7 +187,7 @@ export const Dashboard = () => {
   return (
     <div className="space-y-6 pb-12">
       {/* Clean Finn-style Greeting Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <p className="text-xs font-semibold text-gray-400 dark:text-[#6b6560] uppercase tracking-widest">
             {new Date().getHours() < 12 ? 'Good morning' : new Date().getHours() < 18 ? 'Good afternoon' : 'Good evening'}, Demo
@@ -196,55 +196,55 @@ export const Dashboard = () => {
           <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-gray-900 dark:text-white mt-0.5">
             Applications Pipeline
           </h1>
-          <p className="text-sm text-gray-400 dark:text-[#6b6560] mt-1">
+          <p className="text-xs sm:text-sm text-gray-400 dark:text-[#6b6560] mt-1">
             Track and manage all your job applications in one place.
           </p>
         </div>
 
-        <Button variant="primary" size="md" onClick={() => handleOpenModal()}>
+        <Button variant="primary" size="md" onClick={() => handleOpenModal()} className="w-full sm:w-auto justify-center">
           <Plus className="mr-1.5 h-4 w-4" />
           Add Application
         </Button>
       </div>
 
       {/* Stat Cards */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
 
         {/* Total — Bear red */}
-        <div className="glass-card p-5 overflow-hidden">
-          <p className="text-[11px] font-semibold text-gray-400 dark:text-[#9c9891] uppercase tracking-widest">Total</p>
-          <p className="text-4xl font-bold text-[#D7494C] mt-2 leading-none tabular-nums">{stats.total}</p>
-          <p className="text-xs text-gray-400 dark:text-[#6b6560] mt-2">Applications tracked</p>
+        <div className="glass-card p-4 sm:p-5 overflow-hidden">
+          <p className="text-[10px] sm:text-[11px] font-semibold text-gray-400 dark:text-[#9c9891] uppercase tracking-widest truncate">Total</p>
+          <p className="text-3xl sm:text-4xl font-bold text-[#D7494C] mt-1.5 sm:mt-2 leading-none tabular-nums">{stats.total}</p>
+          <p className="text-[11px] sm:text-xs text-gray-400 dark:text-[#6b6560] mt-1.5 sm:mt-2 truncate">Applications tracked</p>
           <div className="mt-3.5 h-[3px] w-full bg-gray-100 dark:bg-[#302d2a] rounded-full overflow-hidden">
             <div className="h-full bg-[#D7494C] rounded-full transition-all duration-500" style={{width: '100%'}} />
           </div>
         </div>
 
         {/* Applied — slate */}
-        <div className="glass-card p-5 overflow-hidden">
-          <p className="text-[11px] font-semibold text-gray-400 dark:text-[#9c9891] uppercase tracking-widest">Applied</p>
-          <p className="text-4xl font-bold text-slate-600 dark:text-slate-300 mt-2 leading-none tabular-nums">{stats.applied}</p>
-          <p className="text-xs text-gray-400 dark:text-[#6b6560] mt-2">Waiting on response</p>
+        <div className="glass-card p-4 sm:p-5 overflow-hidden">
+          <p className="text-[10px] sm:text-[11px] font-semibold text-gray-400 dark:text-[#9c9891] uppercase tracking-widest truncate">Applied</p>
+          <p className="text-3xl sm:text-4xl font-bold text-slate-600 dark:text-slate-300 mt-1.5 sm:mt-2 leading-none tabular-nums">{stats.applied}</p>
+          <p className="text-[11px] sm:text-xs text-gray-400 dark:text-[#6b6560] mt-1.5 sm:mt-2 truncate">Waiting on response</p>
           <div className="mt-3.5 h-[3px] w-full bg-gray-100 dark:bg-[#302d2a] rounded-full overflow-hidden">
             <div className="h-full bg-slate-400 dark:bg-slate-500 rounded-full transition-all duration-500" style={{width: stats.total ? `${Math.round((stats.applied/stats.total)*100)}%` : '0%'}} />
           </div>
         </div>
 
         {/* Interviewing — amber */}
-        <div className="glass-card p-5 overflow-hidden">
-          <p className="text-[11px] font-semibold text-gray-400 dark:text-[#9c9891] uppercase tracking-widest">Interviewing</p>
-          <p className="text-4xl font-bold text-amber-500 dark:text-amber-400 mt-2 leading-none tabular-nums">{stats.interview}</p>
-          <p className="text-xs text-gray-400 dark:text-[#6b6560] mt-2">Active processes</p>
+        <div className="glass-card p-4 sm:p-5 overflow-hidden">
+          <p className="text-[10px] sm:text-[11px] font-semibold text-gray-400 dark:text-[#9c9891] uppercase tracking-widest truncate">Interviewing</p>
+          <p className="text-3xl sm:text-4xl font-bold text-amber-500 dark:text-amber-400 mt-1.5 sm:mt-2 leading-none tabular-nums">{stats.interview}</p>
+          <p className="text-[11px] sm:text-xs text-gray-400 dark:text-[#6b6560] mt-1.5 sm:mt-2 truncate">Active processes</p>
           <div className="mt-3.5 h-[3px] w-full bg-gray-100 dark:bg-[#302d2a] rounded-full overflow-hidden">
             <div className="h-full bg-amber-400 rounded-full transition-all duration-500" style={{width: stats.total ? `${Math.round((stats.interview/stats.total)*100)}%` : '0%'}} />
           </div>
         </div>
 
         {/* Offers — emerald */}
-        <div className="glass-card p-5 overflow-hidden">
-          <p className="text-[11px] font-semibold text-gray-400 dark:text-[#9c9891] uppercase tracking-widest">Offers</p>
-          <p className="text-4xl font-bold text-emerald-600 dark:text-emerald-400 mt-2 leading-none tabular-nums">{stats.offer}</p>
-          <p className="text-xs text-gray-400 dark:text-[#6b6560] mt-2">Received so far</p>
+        <div className="glass-card p-4 sm:p-5 overflow-hidden">
+          <p className="text-[10px] sm:text-[11px] font-semibold text-gray-400 dark:text-[#9c9891] uppercase tracking-widest truncate">Offers</p>
+          <p className="text-3xl sm:text-4xl font-bold text-emerald-600 dark:text-emerald-400 mt-1.5 sm:mt-2 leading-none tabular-nums">{stats.offer}</p>
+          <p className="text-[11px] sm:text-xs text-gray-400 dark:text-[#6b6560] mt-1.5 sm:mt-2 truncate">Received so far</p>
           <div className="mt-3.5 h-[3px] w-full bg-gray-100 dark:bg-[#302d2a] rounded-full overflow-hidden">
             <div className="h-full bg-emerald-500 rounded-full transition-all duration-500" style={{width: stats.total ? `${Math.round((stats.offer/stats.total)*100)}%` : '0%'}} />
           </div>
@@ -255,20 +255,20 @@ export const Dashboard = () => {
 
       {/* Filter & View Mode Controls */}
       <Card className="!p-3.5 relative z-20">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           {/* Search Box */}
-          <div className="relative flex-1">
+          <div className="relative flex-1 w-full">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" />
             <input
               type="text"
               placeholder="Search by role title, company, or notes..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="glass-input w-full pl-9 pr-4 py-2.5 rounded-xl text-sm"
+              className="glass-input w-full pl-9 pr-4 py-2.5 rounded-xl text-xs sm:text-sm"
             />
           </div>
 
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center justify-between sm:justify-end gap-2.5 w-full sm:w-auto">
             {/* Custom Status Filter Dropdown */}
             <CustomSelect
               options={[

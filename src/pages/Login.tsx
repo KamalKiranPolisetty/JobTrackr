@@ -58,7 +58,7 @@ export const Login = () => {
   };
 
   return (
-    <div className="relative min-h-screen w-screen flex items-center justify-center overflow-hidden p-4">
+    <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden p-4">
       {/* Background ambient lighting effects */}
       <div className="absolute top-1/4 left-1/4 h-80 w-80 rounded-full bg-blue-500/20 blur-3xl pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 h-80 w-80 rounded-full bg-teal-500/20 blur-3xl pointer-events-none" />

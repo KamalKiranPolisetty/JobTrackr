@@ -51,6 +51,7 @@ export const Preparation = () => {
   const [saveStatus, setSaveStatus] = useState<'saved' | 'saving' | 'idle'>('saved');
   const [copied, setCopied] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [mobileTab, setMobileTab] = useState<'list' | 'editor'>('list');
 
   // Active Document Form State (Auto-syncs with selectedItemId)
   const [activeDoc, setActiveDoc] = useState<PrepItem | null>(null);
@@ -151,6 +152,7 @@ export const Preparation = () => {
     loadData();
     setSelectedItemId(newItem.id);
     setActiveDoc(newItem);
+    setMobileTab('editor');
     toast.success(`Created new ${type === 'story' ? 'STAR Story' : 'Tech Note'}`);
   };
 
@@ -267,7 +269,7 @@ export const Preparation = () => {
       <div className="flex-1 flex flex-col md:flex-row gap-6 min-h-0 h-full">
         
         {/* LEFT PANEL: Sleek Document Navigator (w-80 md:w-88 flex-shrink-0) */}
-        <div className={`w-full md:w-80 lg:w-96 flex-shrink-0 flex flex-col space-y-4 min-h-0 ${isFullscreen ? 'hidden' : 'flex'}`}>
+        <div className={`w-full md:w-80 lg:w-96 flex-shrink-0 flex-col space-y-4 min-h-0 ${isFullscreen ? 'hidden' : mobileTab === 'editor' ? 'hidden md:flex' : 'flex'}`}>
           
           {/* Navigator Header Card */}
           <div className="p-4 bg-white dark:bg-[#242120] border border-slate-200 dark:border-[#3a3733] rounded-2xl flex-shrink-0 space-y-3.5 shadow-sm">
@@ -394,6 +396,7 @@ export const Preparation = () => {
                       onClick={() => {
                         setSelectedItemId(item.id);
                         setActiveDoc(item);
+                        setMobileTab('editor');
                       }}
                       className={`px-3 py-2.5 rounded-xl cursor-pointer transition-all duration-150 border group ${
                         selectedItemId === item.id
@@ -440,7 +443,7 @@ export const Preparation = () => {
 
         {/* RIGHT PANEL: Pure Spacious Notion Writing Canvas */}
 
-        <div className="flex-1 min-w-0 flex flex-col h-full min-h-0">
+        <div className={`flex-1 min-w-0 flex-col h-full min-h-0 ${mobileTab === 'list' ? 'hidden md:flex' : 'flex'}`}>
           {!activeDoc ? (
             <Card className="flex-1 flex flex-col items-center justify-center p-12 text-center border-dashed">
               <Sparkles className="h-12 w-12 text-slate-400 mb-3" />
@@ -453,11 +456,20 @@ export const Preparation = () => {
             <Card className="flex-1 flex flex-col min-h-0 w-full h-full !p-0 bg-white dark:bg-[#242120] border border-slate-200 dark:border-[#3a3733] shadow-sm overflow-hidden rounded-2xl">
 
               {/* Canvas Header Bar */}
-              <div className="flex items-center justify-between border-b border-slate-200 dark:border-[#3a3733] px-8 py-4 bg-white dark:bg-[#242120] flex-shrink-0">
-                <div className="flex items-center gap-3">
+              <div className="flex items-center justify-between border-b border-slate-200 dark:border-[#3a3733] px-4 sm:px-8 py-3 sm:py-4 bg-white dark:bg-[#242120] flex-shrink-0 gap-2">
+                <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+                  {/* Mobile Back to List Button */}
+                  <button
+                    onClick={() => setMobileTab('list')}
+                    className="md:hidden flex items-center gap-1 text-xs font-semibold text-slate-600 dark:text-[#e8e3d9] px-2.5 py-1.5 rounded-xl bg-slate-100 dark:bg-[#302d2a] border border-slate-200/80 dark:border-[#3a3733] flex-shrink-0"
+                  >
+                    <ChevronLeft className="h-3.5 w-3.5" />
+                    <span>Notes</span>
+                  </button>
+
                   <button
                     onClick={() => setIsFullscreen(!isFullscreen)}
-                    className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-zinc-200 hover:bg-slate-100 dark:hover:bg-[#302d2a] transition-colors"
+                    className="hidden md:block p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-zinc-200 hover:bg-slate-100 dark:hover:bg-[#302d2a] transition-colors"
                     title="Toggle Navigator Sidebar"
                   >
                     <ChevronLeft className="h-4 w-4" />
@@ -473,7 +485,7 @@ export const Preparation = () => {
 
 
                   {/* Auto-save Indicator */}
-                  <div className="flex items-center gap-1.5 text-xs text-slate-400 font-medium">
+                  <div className="hidden sm:flex items-center gap-1.5 text-xs text-slate-400 font-medium">
                     {saveStatus === 'saving' ? (
                       <span className="flex items-center text-amber-500 font-semibold">
                         <Save className="h-3.5 w-3.5 mr-1" /> Saving...
@@ -487,15 +499,15 @@ export const Preparation = () => {
                 </div>
 
                 {/* Canvas Toolbar Actions */}
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
                   <Button variant="secondary" size="sm" onClick={handleCopyText}>
-                    {copied ? <Check className="mr-1 h-3.5 w-3.5 text-emerald-500" /> : <Copy className="mr-1 h-3.5 w-3.5" />}
-                    Copy
+                    {copied ? <Check className="sm:mr-1 h-3.5 w-3.5 text-emerald-500" /> : <Copy className="sm:mr-1 h-3.5 w-3.5" />}
+                    <span className="hidden sm:inline">Copy</span>
                   </Button>
 
                   <Button variant="ghost" size="sm" onClick={handleShareText} title="Share Note">
-                    <Share2 className="h-4 w-4" />
-                    Share
+                    <Share2 className="h-4 w-4 sm:mr-1" />
+                    <span className="hidden sm:inline">Share</span>
                   </Button>
 
 
@@ -512,7 +524,7 @@ export const Preparation = () => {
 
 
               {/* Canvas Scrollable Document Body (Notion Writing Canvas) */}
-              <div className="flex-1 overflow-y-auto p-6 md:p-8 lg:p-10">
+              <div className="flex-1 overflow-y-auto p-4 sm:p-6 md:p-8 lg:p-10">
                 <div className="max-w-4xl mx-auto w-full space-y-5">
                   {/* Seamless Borderless Title Input */}
                   <div>
@@ -531,7 +543,7 @@ export const Preparation = () => {
 
                   {/* Pure Notion Document Body with Auto-expanding Textareas */}
                   {activeDoc.type === 'story' ? (
-                    <div className="flex flex-col space-y-4 pt-2 flex-1 min-h-[550px]">
+                    <div className="flex flex-col space-y-4 pt-2 flex-1 min-h-[400px] sm:min-h-[550px]">
                       {/* Situation Block */}
                       <div className="flex-1 p-5 rounded-2xl bg-slate-50/60 dark:bg-[#2e2b28] border border-slate-200/80 dark:border-[#3a3733] flex flex-col justify-between space-y-3 transition-all min-h-[120px]">
                         <div className="flex items-center justify-between">
