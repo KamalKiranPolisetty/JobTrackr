@@ -274,8 +274,8 @@ export const Preparation = () => {
       {/* Notion/Linear Widescreen Workspace (Left Doc Navigator Sidebar + Right Centered Notion Canvas) */}
       <div className="flex-1 flex flex-col lg:flex-row gap-6 min-h-0 h-full">
         
-        {/* LEFT PANEL: Sleek Document Navigator (w-80 lg:w-96 flex-shrink-0) */}
-        <div className={`w-full lg:w-80 lg:w-96 flex-shrink-0 flex-col space-y-4 min-h-0 ${isFullscreen ? 'hidden' : mobileTab === 'editor' ? 'hidden lg:flex' : 'flex'}`}>
+        {/* LEFT PANEL: Sleek Document Navigator (w-full lg:w-[410px] xl:w-[430px] flex-shrink-0) */}
+        <div className={`w-full lg:w-[410px] xl:w-[430px] flex-shrink-0 flex-col space-y-4 min-h-0 ${isFullscreen ? 'hidden' : mobileTab === 'editor' ? 'hidden lg:flex' : 'flex'}`}>
           
           {/* Navigator Header Card */}
           <div className="p-4 bg-white dark:bg-[#242120] border border-slate-200 dark:border-[#3a3733] rounded-2xl flex-shrink-0 space-y-3.5 shadow-sm">
@@ -317,7 +317,7 @@ export const Preparation = () => {
             </div>
 
             {/* Clean Category Tabs */}
-            <div className="flex items-center gap-1 overflow-x-auto pb-1 scrollbar-none text-xs">
+            <div className="flex items-center justify-between gap-1 overflow-x-auto pb-0.5 scrollbar-none text-xs">
               <button
                 onClick={() => setActiveCategory('all')}
                 className={`px-3 py-1.5 rounded-lg font-bold transition-all whitespace-nowrap ${
