@@ -37,15 +37,14 @@ export const Preparation = () => {
   
   // Search Input & Save Timeout & Content Textarea Refs
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const titleTextareaRef = useRef<HTMLTextAreaElement>(null);
   const contentTextareaRef = useRef<HTMLTextAreaElement>(null);
   const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const autoResizeTextarea = (target: HTMLTextAreaElement) => {
-    target.style.height = 'auto';
+    target.style.height = '0px';
     target.style.height = `${target.scrollHeight}px`;
   };
-
-
 
   // Notion Canvas State
   const [saveStatus, setSaveStatus] = useState<'saved' | 'saving' | 'idle'>('saved');
@@ -55,6 +54,13 @@ export const Preparation = () => {
 
   // Active Document Form State (Auto-syncs with selectedItemId)
   const [activeDoc, setActiveDoc] = useState<PrepItem | null>(null);
+
+  // Auto-resize title textarea when document changes or title edits
+  useEffect(() => {
+    if (titleTextareaRef.current) {
+      autoResizeTextarea(titleTextareaRef.current);
+    }
+  }, [activeDoc?.id, activeDoc?.title]);
 
   useEffect(() => {
     loadData();
@@ -266,10 +272,10 @@ export const Preparation = () => {
     <div className="h-full flex-1 flex flex-col min-h-0 overflow-hidden">
 
       {/* Notion/Linear Widescreen Workspace (Left Doc Navigator Sidebar + Right Centered Notion Canvas) */}
-      <div className="flex-1 flex flex-col md:flex-row gap-6 min-h-0 h-full">
+      <div className="flex-1 flex flex-col lg:flex-row gap-6 min-h-0 h-full">
         
-        {/* LEFT PANEL: Sleek Document Navigator (w-80 md:w-88 flex-shrink-0) */}
-        <div className={`w-full md:w-80 lg:w-96 flex-shrink-0 flex-col space-y-4 min-h-0 ${isFullscreen ? 'hidden' : mobileTab === 'editor' ? 'hidden md:flex' : 'flex'}`}>
+        {/* LEFT PANEL: Sleek Document Navigator (w-80 lg:w-96 flex-shrink-0) */}
+        <div className={`w-full lg:w-80 lg:w-96 flex-shrink-0 flex-col space-y-4 min-h-0 ${isFullscreen ? 'hidden' : mobileTab === 'editor' ? 'hidden lg:flex' : 'flex'}`}>
           
           {/* Navigator Header Card */}
           <div className="p-4 bg-white dark:bg-[#242120] border border-slate-200 dark:border-[#3a3733] rounded-2xl flex-shrink-0 space-y-3.5 shadow-sm">
@@ -443,7 +449,7 @@ export const Preparation = () => {
 
         {/* RIGHT PANEL: Pure Spacious Notion Writing Canvas */}
 
-        <div className={`flex-1 min-w-0 flex-col h-full min-h-0 ${mobileTab === 'list' ? 'hidden md:flex' : 'flex'}`}>
+        <div className={`flex-1 min-w-0 flex-col h-full min-h-0 ${mobileTab === 'list' ? 'hidden lg:flex' : 'flex'}`}>
           {!activeDoc ? (
             <Card className="flex-1 flex flex-col items-center justify-center p-12 text-center border-dashed">
               <Sparkles className="h-12 w-12 text-slate-400 mb-3" />
@@ -456,12 +462,12 @@ export const Preparation = () => {
             <Card className="flex-1 flex flex-col min-h-0 w-full h-full !p-0 bg-white dark:bg-[#242120] border border-slate-200 dark:border-[#3a3733] shadow-sm overflow-hidden rounded-2xl">
 
               {/* Canvas Header Bar */}
-              <div className="flex items-center justify-between border-b border-slate-200 dark:border-[#3a3733] px-4 sm:px-8 py-3 sm:py-4 bg-white dark:bg-[#242120] flex-shrink-0 gap-2">
+              <div className="flex items-center justify-between border-b border-slate-200 dark:border-[#3a3733] px-4 sm:px-8 py-3 bg-white dark:bg-[#242120] flex-shrink-0 gap-2">
                 <div className="flex items-center gap-2 sm:gap-3 min-w-0">
-                  {/* Mobile Back to List Button */}
+                  {/* Mobile & Tablet Back to List Button */}
                   <button
                     onClick={() => setMobileTab('list')}
-                    className="md:hidden flex items-center gap-1 text-xs font-semibold text-slate-600 dark:text-[#e8e3d9] px-2.5 py-1.5 rounded-xl bg-slate-100 dark:bg-[#302d2a] border border-slate-200/80 dark:border-[#3a3733] flex-shrink-0"
+                    className="lg:hidden flex items-center gap-1 text-xs font-semibold text-slate-600 dark:text-[#e8e3d9] px-2.5 py-1.5 rounded-xl bg-slate-100 dark:bg-[#302d2a] border border-slate-200/80 dark:border-[#3a3733] flex-shrink-0"
                   >
                     <ChevronLeft className="h-3.5 w-3.5" />
                     <span>Notes</span>
@@ -469,19 +475,21 @@ export const Preparation = () => {
 
                   <button
                     onClick={() => setIsFullscreen(!isFullscreen)}
-                    className="hidden md:block p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-zinc-200 hover:bg-slate-100 dark:hover:bg-[#302d2a] transition-colors"
+                    className="hidden lg:block p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-zinc-200 hover:bg-slate-100 dark:hover:bg-[#302d2a] transition-colors"
                     title="Toggle Navigator Sidebar"
                   >
                     <ChevronLeft className="h-4 w-4" />
                   </button>
 
-                  {/* Minimalist Custom Category Selector */}
-                  <CustomSelect
-                    options={CATEGORY_OPTIONS}
-                    value={activeDoc.category}
-                    onChange={(val) => handleDocChange('category', val as any)}
-                    size="sm"
-                  />
+                  {/* Desktop Category Selector */}
+                  <div className="hidden lg:block flex-shrink-0">
+                    <CustomSelect
+                      options={CATEGORY_OPTIONS}
+                      value={activeDoc.category}
+                      onChange={(val) => handleDocChange('category', val as any)}
+                      size="sm"
+                    />
+                  </div>
 
 
                   {/* Auto-save Indicator */}
@@ -524,16 +532,26 @@ export const Preparation = () => {
 
 
               {/* Canvas Scrollable Document Body (Notion Writing Canvas) */}
-              <div className="flex-1 overflow-y-auto p-4 sm:p-6 md:p-8 lg:p-10">
-                <div className="max-w-4xl mx-auto w-full space-y-5">
+              <div className="flex-1 overflow-y-auto p-4 sm:p-6 md:p-8 lg:p-10 flex flex-col">
+                <div className="max-w-4xl mx-auto w-full space-y-5 flex-1 flex flex-col min-h-0">
                   {/* Seamless Borderless Title Input */}
-                  <div>
+                  <div className="pt-1">
+                    {/* Mobile & Tablet Category Selector Tag */}
+                    <div className="lg:hidden mb-2.5">
+                      <CustomSelect
+                        options={CATEGORY_OPTIONS}
+                        value={activeDoc.category}
+                        onChange={(val) => handleDocChange('category', val as any)}
+                        size="sm"
+                      />
+                    </div>
+
                     <input
                       type="text"
                       placeholder="Untitled Document..."
                       value={activeDoc.title}
                       onChange={(e) => handleDocChange('title', e.target.value)}
-                      className="w-full text-2xl sm:text-3xl font-extrabold bg-transparent text-slate-900 dark:text-[#e8e3d9] placeholder:text-slate-300 dark:placeholder:text-zinc-700 focus:outline-none tracking-tight border-b border-transparent focus:border-slate-300 dark:focus:border-zinc-800 pb-2 transition-all"
+                      className="w-full text-xl sm:text-2xl md:text-3xl font-extrabold bg-transparent text-slate-900 dark:text-[#e8e3d9] placeholder:text-slate-300 dark:placeholder:text-zinc-700 focus:outline-none tracking-tight border-b border-transparent focus:border-slate-300 dark:focus:border-zinc-800 py-1 transition-all"
                     />
                     <p className="text-xs text-slate-400 font-medium mt-1.5">
                       Last updated today at {new Date(activeDoc.updated_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
@@ -543,9 +561,9 @@ export const Preparation = () => {
 
                   {/* Pure Notion Document Body with Auto-expanding Textareas */}
                   {activeDoc.type === 'story' ? (
-                    <div className="flex flex-col space-y-4 pt-2 flex-1 min-h-[400px] sm:min-h-[550px]">
+                    <div className="flex flex-col space-y-4 pt-2">
                       {/* Situation Block */}
-                      <div className="flex-1 p-5 rounded-2xl bg-slate-50/60 dark:bg-[#2e2b28] border border-slate-200/80 dark:border-[#3a3733] flex flex-col justify-between space-y-3 transition-all min-h-[120px]">
+                      <div className="p-4 sm:p-5 rounded-2xl bg-slate-50/60 dark:bg-[#2e2b28] border border-slate-200/80 dark:border-[#3a3733] flex flex-col space-y-3 transition-all">
                         <div className="flex items-center justify-between">
                           <span className="px-2.5 py-0.5 rounded-md text-[11px] font-semibold tracking-wider uppercase bg-gray-100 dark:bg-[#302d2a] text-gray-600 dark:text-[#9c9891] border border-gray-200/80 dark:border-[#3a3733]">
                             SITUATION
@@ -560,12 +578,12 @@ export const Preparation = () => {
                             autoResizeTextarea(e.target);
                           }}
                           onFocus={(e) => autoResizeTextarea(e.target)}
-                          className="w-full bg-transparent text-sm sm:text-base font-normal text-slate-900 dark:text-[#e8e3d9] placeholder:text-slate-400 dark:placeholder:text-zinc-600 focus:outline-none resize-none leading-relaxed flex-1"
+                          className="w-full bg-transparent text-sm sm:text-base font-normal text-slate-900 dark:text-[#e8e3d9] placeholder:text-slate-400 dark:placeholder:text-zinc-600 focus:outline-none resize-none leading-relaxed overflow-hidden"
                         />
                       </div>
 
                       {/* Task Block */}
-                      <div className="flex-1 p-5 rounded-2xl bg-slate-50/60 dark:bg-[#2e2b28] border border-slate-200/80 dark:border-[#3a3733] flex flex-col justify-between space-y-3 transition-all min-h-[120px]">
+                      <div className="p-4 sm:p-5 rounded-2xl bg-slate-50/60 dark:bg-[#2e2b28] border border-slate-200/80 dark:border-[#3a3733] flex flex-col space-y-3 transition-all">
                         <div className="flex items-center justify-between">
                           <span className="px-2.5 py-0.5 rounded-md text-[11px] font-semibold tracking-wider uppercase bg-gray-100 dark:bg-[#302d2a] text-gray-600 dark:text-[#9c9891] border border-gray-200/80 dark:border-[#3a3733]">
                             TASK
@@ -580,12 +598,12 @@ export const Preparation = () => {
                             autoResizeTextarea(e.target);
                           }}
                           onFocus={(e) => autoResizeTextarea(e.target)}
-                          className="w-full bg-transparent text-sm sm:text-base font-normal text-slate-900 dark:text-[#e8e3d9] placeholder:text-slate-400 dark:placeholder:text-zinc-600 focus:outline-none resize-none leading-relaxed flex-1"
+                          className="w-full bg-transparent text-sm sm:text-base font-normal text-slate-900 dark:text-[#e8e3d9] placeholder:text-slate-400 dark:placeholder:text-zinc-600 focus:outline-none resize-none leading-relaxed overflow-hidden"
                         />
                       </div>
 
                       {/* Action Block */}
-                      <div className="flex-1 p-5 rounded-2xl bg-slate-50/60 dark:bg-[#2e2b28] border border-slate-200/80 dark:border-[#3a3733] flex flex-col justify-between space-y-3 transition-all min-h-[130px]">
+                      <div className="p-4 sm:p-5 rounded-2xl bg-slate-50/60 dark:bg-[#2e2b28] border border-slate-200/80 dark:border-[#3a3733] flex flex-col space-y-3 transition-all">
                         <div className="flex items-center justify-between">
                           <span className="px-2.5 py-0.5 rounded-md text-[11px] font-semibold tracking-wider uppercase bg-gray-100 dark:bg-[#302d2a] text-gray-600 dark:text-[#9c9891] border border-gray-200/80 dark:border-[#3a3733]">
                             ACTION
@@ -600,12 +618,12 @@ export const Preparation = () => {
                             autoResizeTextarea(e.target);
                           }}
                           onFocus={(e) => autoResizeTextarea(e.target)}
-                          className="w-full bg-transparent text-sm sm:text-base font-normal text-slate-900 dark:text-[#e8e3d9] placeholder:text-slate-400 dark:placeholder:text-zinc-600 focus:outline-none resize-none leading-relaxed flex-1"
+                          className="w-full bg-transparent text-sm sm:text-base font-normal text-slate-900 dark:text-[#e8e3d9] placeholder:text-slate-400 dark:placeholder:text-zinc-600 focus:outline-none resize-none leading-relaxed overflow-hidden"
                         />
                       </div>
 
                       {/* Result Block */}
-                      <div className="flex-1 p-5 rounded-2xl bg-slate-50/60 dark:bg-[#2e2b28] border border-slate-200/80 dark:border-[#3a3733] flex flex-col justify-between space-y-3 transition-all min-h-[120px]">
+                      <div className="p-4 sm:p-5 rounded-2xl bg-slate-50/60 dark:bg-[#2e2b28] border border-slate-200/80 dark:border-[#3a3733] flex flex-col space-y-3 transition-all">
                         <div className="flex items-center justify-between">
                           <span className="px-2.5 py-0.5 rounded-md text-[11px] font-semibold tracking-wider uppercase bg-gray-100 dark:bg-[#302d2a] text-gray-600 dark:text-[#9c9891] border border-gray-200/80 dark:border-[#3a3733]">
                             RESULT
@@ -620,25 +638,25 @@ export const Preparation = () => {
                             autoResizeTextarea(e.target);
                           }}
                           onFocus={(e) => autoResizeTextarea(e.target)}
-                          className="w-full bg-transparent text-sm sm:text-base font-normal text-slate-900 dark:text-[#e8e3d9] placeholder:text-slate-400 dark:placeholder:text-zinc-600 focus:outline-none resize-none leading-relaxed flex-1"
+                          className="w-full bg-transparent text-sm sm:text-base font-normal text-slate-900 dark:text-[#e8e3d9] placeholder:text-slate-400 dark:placeholder:text-zinc-600 focus:outline-none resize-none leading-relaxed overflow-hidden"
                         />
                       </div>
                     </div>
                   ) : (
 
 
-                    /* Technical Note Editor Canvas */
+                    /* Technical Note Editor Canvas (Expands full page height) */
                     <div 
-                      className="pt-1 cursor-text"
+                      className="pt-1 cursor-text flex-1 flex flex-col min-h-[450px]"
                       onClick={() => contentTextareaRef.current?.focus()}
                     >
                       <textarea
                         ref={contentTextareaRef}
-                        rows={18}
+                        rows={16}
                         placeholder="Start typing your technical notes, system design blueprints, or markdown documentation here..."
                         value={activeDoc.content}
                         onChange={(e) => handleDocChange('content', e.target.value)}
-                        className="w-full bg-transparent text-sm sm:text-base font-mono leading-relaxed text-slate-900 dark:text-[#e8e3d9] placeholder:text-slate-400 dark:placeholder:text-zinc-600 focus:outline-none resize-none"
+                        className="w-full bg-transparent text-sm sm:text-base font-mono leading-relaxed text-slate-900 dark:text-[#e8e3d9] placeholder:text-slate-400 dark:placeholder:text-zinc-600 focus:outline-none resize-none flex-1 min-h-[450px]"
                       />
                     </div>
                   )}

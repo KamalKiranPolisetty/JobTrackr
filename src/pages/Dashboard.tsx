@@ -284,8 +284,8 @@ export const Dashboard = () => {
               align="right"
             />
 
-            {/* View Mode Toggle */}
-            <div className="flex items-center bg-gray-100 dark:bg-[#2e2b28] p-1 rounded-xl">
+            {/* View Mode Toggle (Hidden on mobile & tablet for clean card presentation) */}
+            <div className="hidden lg:flex items-center bg-gray-100 dark:bg-[#2e2b28] p-1 rounded-xl">
               <button
                 onClick={() => setViewMode('grid')}
                 className={`p-1.5 rounded-lg transition-all ${
@@ -428,73 +428,144 @@ export const Dashboard = () => {
           </AnimatePresence>
         </div>
       ) : (
-        /* Clean Table View */
-      <Card className="!p-0 overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs">
-              <thead className="bg-gray-50 dark:bg-[#1c1917] border-b border-gray-100 dark:border-[#3a3733] text-gray-500 uppercase tracking-wider font-semibold">
-                <tr>
-                  <th className="px-6 py-3.5">Company & Role</th>
-                  <th className="px-6 py-3.5">Status</th>
-                  <th className="px-6 py-3.5">Compensation & Location</th>
-                  <th className="px-6 py-3.5">Applied Date</th>
-                  <th className="px-6 py-3.5 text-right">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-100 dark:divide-[#252837] font-medium">
-                {filteredJobs.map((job) => (
-                  <tr key={job.id} className="hover:bg-gray-50 dark:hover:bg-[#302d2a] transition-colors">
-                    <td className="px-6 py-4">
-                      <div className="flex items-center gap-3">
-                        <div className="h-8 w-8 rounded-lg bg-[#FEF2F2] dark:bg-[#D7494C]/12 text-[#C43538] dark:text-[#e05c5f] font-semibold text-xs flex items-center justify-center">
-                          {job.company?.[0]?.toUpperCase() || 'C'}
-                        </div>
-                        <div>
-                          <div className="font-semibold text-gray-900 dark:text-white text-sm">{job.role}</div>
-                          <div className="text-gray-500 dark:text-[#9c9891] text-xs mt-0.5">{job.company}</div>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4">{getStatusBadge(job.status)}</td>
-                    <td className="px-6 py-4">
-                      <div className="font-medium text-gray-900 dark:text-[#d4cfc6] text-sm">{job.salary || '—'}</div>
-                      <div className="text-xs text-gray-400 mt-0.5">{job.location || '—'}</div>
-                    </td>
-                    <td className="px-6 py-4 text-gray-500 dark:text-[#9c9891] text-sm">
-                      {job.applied_date}
-                    </td>
-                    <td className="px-6 py-4 text-right">
-                      <div className="flex items-center justify-end gap-1.5">
-                        {job.job_link && (
-                          <a
-                            href={job.job_link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/30 rounded-lg transition-colors"
-                          >
-                            <ExternalLink className="h-4 w-4" />
-                          </a>
-                        )}
-                        <button
-                          onClick={() => handleOpenModal(job)}
-                          className="p-1.5 text-slate-400 hover:text-[#D7494C] hover:bg-[#FEF2F2] dark:hover:bg-[#D7494C]/15 rounded-lg transition-colors"
-                        >
-                          <Pencil className="h-4 w-4" />
-                        </button>
-                        <button
-                          onClick={() => setDeleteTargetId(job.id)}
-                          className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/30 rounded-lg transition-colors"
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+        /* Clean Table View (Desktop) + Mobile Fallback Cards */
+        <div>
+          {/* Mobile & Tablet Fallback: Clean Card View */}
+          <div className="lg:hidden grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {filteredJobs.map((job) => (
+              <Card key={job.id} hover className="!p-5">
+                <div className="flex items-start justify-between gap-3 mb-3">
+                  <div className="flex items-center gap-3 min-w-0 flex-1">
+                    <div className="h-9 w-9 rounded-xl bg-[#FEF2F2] dark:bg-[#D7494C]/12 text-[#C43538] dark:text-[#e05c5f] font-bold text-sm flex items-center justify-center flex-shrink-0">
+                      {job.company?.[0]?.toUpperCase() || 'C'}
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <h3 className="font-semibold text-gray-900 dark:text-[#e8e3d9] text-base leading-snug">
+                        {job.role}
+                      </h3>
+                      <p className="text-sm text-gray-500 dark:text-[#9c9891] mt-0.5">
+                        {job.company}
+                      </p>
+                    </div>
+                  </div>
+
+                  {getStatusBadge(job.status)}
+                </div>
+
+                <div className="flex flex-wrap gap-1.5 mb-3">
+                  {job.salary && (
+                    <span className="px-2 py-0.5 rounded-md text-xs font-medium bg-gray-100 dark:bg-[#2e2b28] text-gray-600 dark:text-[#9c9891] border border-gray-200 dark:border-[#3a3733] flex items-center gap-1">
+                      <DollarSign className="h-3 w-3 text-gray-400" /> {job.salary}
+                    </span>
+                  )}
+                  {job.location && (
+                    <span className="px-2 py-0.5 rounded-md text-xs font-medium bg-gray-100 dark:bg-[#2e2b28] text-gray-600 dark:text-[#9c9891] border border-gray-200 dark:border-[#3a3733] flex items-center gap-1">
+                      <MapPin className="h-3 w-3 text-gray-400" /> {job.location}
+                    </span>
+                  )}
+                </div>
+
+                <div className="pt-3 border-t border-gray-100 dark:border-[#3a3733] flex items-center justify-between">
+                  <span className="text-xs text-gray-400 dark:text-[#6b6560]">
+                    {job.applied_date}
+                  </span>
+                  <div className="flex items-center gap-1.5">
+                    {job.job_link && (
+                      <a
+                        href={job.job_link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/30 rounded-lg transition-colors"
+                      >
+                        <ExternalLink className="h-4 w-4" />
+                      </a>
+                    )}
+                    <button
+                      onClick={() => handleOpenModal(job)}
+                      className="p-1.5 text-slate-400 hover:text-[#D7494C] hover:bg-[#FEF2F2] dark:hover:bg-[#D7494C]/15 rounded-lg transition-colors"
+                    >
+                      <Pencil className="h-4 w-4" />
+                    </button>
+                    <button
+                      onClick={() => setDeleteTargetId(job.id)}
+                      className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/30 rounded-lg transition-colors"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </button>
+                  </div>
+                </div>
+              </Card>
+            ))}
           </div>
-        </Card>
+
+          {/* Desktop Only Table View */}
+          <Card className="hidden lg:block !p-0 overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-xs">
+                <thead className="bg-gray-50 dark:bg-[#1c1917] border-b border-gray-100 dark:border-[#3a3733] text-gray-500 uppercase tracking-wider font-semibold">
+                  <tr>
+                    <th className="px-6 py-3.5">Company & Role</th>
+                    <th className="px-6 py-3.5">Status</th>
+                    <th className="px-6 py-3.5">Compensation & Location</th>
+                    <th className="px-6 py-3.5">Applied Date</th>
+                    <th className="px-6 py-3.5 text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-100 dark:divide-[#252837] font-medium">
+                  {filteredJobs.map((job) => (
+                    <tr key={job.id} className="hover:bg-gray-50 dark:hover:bg-[#302d2a] transition-colors">
+                      <td className="px-6 py-4">
+                        <div className="flex items-center gap-3">
+                          <div className="h-8 w-8 rounded-lg bg-[#FEF2F2] dark:bg-[#D7494C]/12 text-[#C43538] dark:text-[#e05c5f] font-semibold text-xs flex items-center justify-center">
+                            {job.company?.[0]?.toUpperCase() || 'C'}
+                          </div>
+                          <div>
+                            <div className="font-semibold text-gray-900 dark:text-white text-sm">{job.role}</div>
+                            <div className="text-gray-500 dark:text-[#9c9891] text-xs mt-0.5">{job.company}</div>
+                          </div>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4">{getStatusBadge(job.status)}</td>
+                      <td className="px-6 py-4">
+                        <div className="font-medium text-gray-900 dark:text-[#d4cfc6] text-sm">{job.salary || '—'}</div>
+                        <div className="text-xs text-gray-400 mt-0.5">{job.location || '—'}</div>
+                      </td>
+                      <td className="px-6 py-4 text-gray-500 dark:text-[#9c9891] text-sm">
+                        {job.applied_date}
+                      </td>
+                      <td className="px-6 py-4 text-right">
+                        <div className="flex items-center justify-end gap-1.5">
+                          {job.job_link && (
+                            <a
+                              href={job.job_link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/30 rounded-lg transition-colors"
+                            >
+                              <ExternalLink className="h-4 w-4" />
+                            </a>
+                          )}
+                          <button
+                            onClick={() => handleOpenModal(job)}
+                            className="p-1.5 text-slate-400 hover:text-[#D7494C] hover:bg-[#FEF2F2] dark:hover:bg-[#D7494C]/15 rounded-lg transition-colors"
+                          >
+                            <Pencil className="h-4 w-4" />
+                          </button>
+                          <button
+                            onClick={() => setDeleteTargetId(job.id)}
+                            className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/30 rounded-lg transition-colors"
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </Card>
+        </div>
       )}
 
       {/* Add / Edit Application Modal */}

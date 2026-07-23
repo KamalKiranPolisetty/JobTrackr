@@ -37,7 +37,7 @@ export const Layout = ({ children }: LayoutProps) => {
   return (
     <div className="flex h-full w-full min-h-screen overflow-hidden font-sans bg-[#f7f7f9] dark:bg-[#1c1917]">
       {/* Desktop Sidebar */}
-      <aside className="hidden md:flex w-64 flex-col border-r border-slate-200/60 dark:border-transparent bg-[#f7f7f9] dark:bg-[#1c1917] z-20">
+      <aside className="hidden lg:flex w-64 flex-col border-r border-slate-200/60 dark:border-transparent bg-[#f7f7f9] dark:bg-[#1c1917] z-20">
         <div className="flex h-full flex-col justify-between p-4">
           <div>
             {/* Logo */}
@@ -117,8 +117,8 @@ export const Layout = ({ children }: LayoutProps) => {
         </div>
       </aside>
 
-      {/* Mobile Top Header */}
-      <div className="md:hidden fixed top-0 left-0 right-0 h-14 z-20 flex items-center justify-between px-4 bg-[#f7f7f9] dark:bg-[#1c1917] border-b border-gray-200/80 dark:border-[#3a3733]">
+      {/* Mobile & Tablet Top Header */}
+      <div className="lg:hidden fixed top-0 left-0 right-0 h-14 z-20 flex items-center justify-between px-4 bg-[#f7f7f9] dark:bg-[#1c1917] border-b border-gray-200/80 dark:border-[#3a3733]">
         <Logo size="sm" showSubtitle={false} />
 
 
@@ -130,14 +130,14 @@ export const Layout = ({ children }: LayoutProps) => {
         </button>
       </div>
 
-      {/* Mobile Navigation Drawer */}
+      {/* Mobile & Tablet Navigation Drawer */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="md:hidden fixed inset-x-0 top-14 z-20 bg-[#f7f7f9] dark:bg-[#1c1917] border-b border-gray-200/80 dark:border-[#3a3733] p-4 space-y-2 shadow-lg"
+            className="lg:hidden fixed inset-x-0 top-14 z-20 bg-[#f7f7f9] dark:bg-[#1c1917] border-b border-gray-200/80 dark:border-[#3a3733] p-4 space-y-2 shadow-lg"
           >
             {navItems.map((item) => (
               <NavLink
@@ -171,7 +171,7 @@ export const Layout = ({ children }: LayoutProps) => {
 
 
       {/* Main Content Area */}
-      <main className="flex-1 h-full overflow-hidden pt-14 md:pt-0 relative flex flex-col bg-[#f7f7f9] dark:bg-[#1c1917]">
+      <main className="flex-1 h-full overflow-y-auto pt-14 lg:pt-0 relative flex flex-col bg-[#f7f7f9] dark:bg-[#1c1917]">
         <div className="max-w-[1800px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-5 lg:py-7 flex-1 h-full flex flex-col min-h-0">
           <motion.div
             initial={{ opacity: 0, y: 8 }}

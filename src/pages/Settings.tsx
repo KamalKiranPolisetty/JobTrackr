@@ -141,7 +141,7 @@ export const Settings = () => {
       </div>
 
       {/* Modern Top Horizontal Segmented Tab Bar (Snug Inline Fit) */}
-      <div className="inline-flex items-center gap-1.5 p-1.5 bg-slate-100 dark:bg-[#242120] border border-slate-200/80 dark:border-[#3a3733] rounded-2xl max-w-full overflow-x-auto scrollbar-none">
+      <div className="flex w-full items-center gap-1.5 p-1.5 bg-slate-100 dark:bg-[#242120] border border-slate-200/80 dark:border-[#3a3733] rounded-2xl max-w-full overflow-x-auto scrollbar-none">
 
         {tabs.map((tab) => {
           const Icon = tab.icon;
@@ -150,7 +150,7 @@ export const Settings = () => {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as any)}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-extrabold transition-all whitespace-nowrap ${
+              className={`flex items-center gap-2 px-3 sm:px-4 py-2.5 rounded-xl text-xs font-extrabold transition-all whitespace-nowrap ${
                 isActive
                   ? tab.danger
                     ? 'bg-rose-600 text-white shadow-sm'
@@ -170,7 +170,7 @@ export const Settings = () => {
       {/* Main Settings Card Panel */}
       <div className="space-y-6">
         {activeTab === 'profile' && (
-          <Card className="!p-6 sm:!p-8 space-y-6 bg-white dark:bg-[#242120] border border-slate-200 dark:border-[#3a3733] shadow-sm rounded-2xl">
+          <Card className="!p-4 sm:!p-8 space-y-6 bg-white dark:bg-[#242120] border border-slate-200 dark:border-[#3a3733] shadow-sm rounded-2xl">
             {/* Profile Avatar & Info Card */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-gray-100 dark:border-[#3a3733]">
               <div className="flex items-center gap-4">
@@ -254,7 +254,7 @@ export const Settings = () => {
         )}
 
         {activeTab === 'appearance' && (
-          <Card className="!p-6 sm:!p-8 space-y-6 bg-white dark:bg-[#242120] border border-slate-200 dark:border-[#3a3733] shadow-sm rounded-2xl">
+          <Card className="!p-4 sm:!p-8 space-y-6 bg-white dark:bg-[#242120] border border-slate-200 dark:border-[#3a3733] shadow-sm rounded-2xl">
             <div>
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                 Appearance & Theme
@@ -315,7 +315,7 @@ export const Settings = () => {
         )}
 
         {activeTab === 'data' && (
-          <Card className="!p-6 sm:!p-8 space-y-6 bg-white dark:bg-[#242120] border border-slate-200 dark:border-[#3a3733] shadow-sm rounded-2xl">
+          <Card className="!p-4 sm:!p-8 space-y-6 bg-white dark:bg-[#242120] border border-slate-200 dark:border-[#3a3733] shadow-sm rounded-2xl">
             <div>
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                 Data Backup & Export
