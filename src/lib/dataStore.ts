@@ -258,6 +258,7 @@ export const fetchPrepItemsFromSupabase = async (userId: string): Promise<PrepIt
         action: d.action || '',
         result: d.result || '',
         content: d.content || '',
+        pinned: d.pinned || false,
         updated_at: d.updated_at || new Date().toISOString(),
       }));
       localStorage.setItem(PREP_ITEMS_STORAGE_KEY, JSON.stringify(formattedItems));
@@ -286,6 +287,7 @@ export const syncPrepItemToSupabase = async (item: PrepItem): Promise<void> => {
     result: item.result,
     content: item.content,
     folder_id: item.folder_id,
+    pinned: item.pinned || false,
   };
 
   await supabase.from('prep_items').upsert(payload);

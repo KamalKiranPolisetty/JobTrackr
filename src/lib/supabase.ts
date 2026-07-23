@@ -1,13 +1,13 @@
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://placeholder.supabase.co';
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'placeholder-anon-key';
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || import.meta.env.SUPABASE_URL || 'https://placeholder.supabase.co';
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || import.meta.env.SUPABASE_PUBLISHABLE_KEY || 'placeholder-anon-key';
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 export const isSupabaseConfigured = (): boolean => {
-  const url = import.meta.env.VITE_SUPABASE_URL;
-  const key = import.meta.env.VITE_SUPABASE_ANON_KEY;
+  const url = import.meta.env.VITE_SUPABASE_URL || import.meta.env.SUPABASE_URL;
+  const key = import.meta.env.VITE_SUPABASE_ANON_KEY || import.meta.env.SUPABASE_PUBLISHABLE_KEY;
   return Boolean(url && key && url !== 'https://placeholder.supabase.co' && !url.includes('placeholder'));
 };
 
@@ -102,6 +102,7 @@ export interface Database {
         Row: {
           id: string
           user_id: string
+          job_id: string | null
           type: string
           category: string
           title: string
@@ -111,12 +112,14 @@ export interface Database {
           result: string
           content: string
           folder_id: string
+          pinned: boolean
           created_at: string
           updated_at: string
         }
         Insert: {
           id?: string
           user_id: string
+          job_id?: string | null
           type?: string
           category?: string
           title: string
@@ -126,12 +129,14 @@ export interface Database {
           result?: string
           content?: string
           folder_id?: string
+          pinned?: boolean
           created_at?: string
           updated_at?: string
         }
         Update: {
           id?: string
           user_id?: string
+          job_id?: string | null
           type?: string
           category?: string
           title?: string
@@ -141,6 +146,7 @@ export interface Database {
           result?: string
           content?: string
           folder_id?: string
+          pinned?: boolean
           created_at?: string
           updated_at?: string
         }

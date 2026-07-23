@@ -1,5 +1,5 @@
 -- ========================================================
--- JobTrackr (CareerCraft) - Production Supabase SQL Schema
+-- JobTrackr (CareerCraft) - Complete Supabase Database Schema
 -- ========================================================
 -- Execute this script in your Supabase SQL Editor (https://supabase.com/dashboard/project/_/sql)
 -- to create tables, indexes, security policies (RLS), and automated triggers.
@@ -11,7 +11,7 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 -- 1. PROFILES TABLE
 -- ========================================================
 CREATE TABLE IF NOT EXISTS public.profiles (
-  id UUID REFERENCES auth.users ON DELETE CASCADE PRIMARY KEY,
+  id UUID REFERENCES auth.users(id) ON DELETE CASCADE PRIMARY KEY,
   email TEXT NOT NULL,
   full_name TEXT DEFAULT '',
   target_role TEXT DEFAULT 'Software Engineer',
@@ -42,7 +42,7 @@ CREATE POLICY "Users can insert own profile"
 -- ========================================================
 CREATE TABLE IF NOT EXISTS public.jobs (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  user_id UUID REFERENCES auth.users ON DELETE CASCADE NOT NULL,
+  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
   company TEXT NOT NULL,
   role TEXT NOT NULL,
   status TEXT NOT NULL DEFAULT 'Applied',
@@ -84,7 +84,8 @@ CREATE POLICY "Users can delete own jobs"
 -- ========================================================
 CREATE TABLE IF NOT EXISTS public.prep_items (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  user_id UUID REFERENCES auth.users ON DELETE CASCADE NOT NULL,
+  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
+  job_id UUID REFERENCES public.jobs(id) ON DELETE SET NULL,
   type TEXT NOT NULL DEFAULT 'story',
   category TEXT NOT NULL DEFAULT 'Behavioral',
   title TEXT NOT NULL,
@@ -94,12 +95,14 @@ CREATE TABLE IF NOT EXISTS public.prep_items (
   result TEXT DEFAULT '',
   content TEXT DEFAULT '',
   folder_id TEXT DEFAULT 'ws-1',
+  pinned BOOLEAN DEFAULT false,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
 -- Create Indexes for fast retrieval
 CREATE INDEX IF NOT EXISTS prep_items_user_id_idx ON public.prep_items(user_id);
+CREATE INDEX IF NOT EXISTS prep_items_job_id_idx ON public.prep_items(job_id);
 CREATE INDEX IF NOT EXISTS prep_items_category_idx ON public.prep_items(category);
 
 -- Enable RLS on Prep Items
