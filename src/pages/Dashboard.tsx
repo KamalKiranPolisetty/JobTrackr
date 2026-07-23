@@ -5,7 +5,8 @@ import {
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { motion, AnimatePresence } from 'framer-motion';
-import { getStoredJobs, saveJob, deleteStoredJob, Job } from '../lib/dataStore';
+import { getStoredJobs, saveJob, deleteStoredJob, fetchJobsFromSupabase, Job } from '../lib/dataStore';
+import { useAuth } from '../contexts/AuthContext';
 import { Button } from '../components/Button';
 import { Input } from '../components/Input';
 import { Modal } from '../components/Modal';
@@ -26,6 +27,7 @@ const STATUS_OPTIONS = [
 ];
 
 export const Dashboard = () => {
+  const { user } = useAuth();
   const [jobs, setJobs] = useState<Job[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
@@ -52,11 +54,18 @@ export const Dashboard = () => {
 
   useEffect(() => {
     loadJobs();
-  }, []);
+  }, [user]);
 
-  const loadJobs = () => {
+  const loadJobs = async () => {
     const loaded = getStoredJobs();
     setJobs(loaded);
+
+    if (user?.id) {
+      const cloudJobs = await fetchJobsFromSupabase(user.id);
+      if (cloudJobs) {
+        setJobs(cloudJobs);
+      }
+    }
   };
 
   const handleOpenModal = (job?: Job) => {

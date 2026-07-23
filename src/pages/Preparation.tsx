@@ -8,8 +8,9 @@ import toast from 'react-hot-toast';
 
 
 import { 
-  getStoredPrepItems, savePrepItem, deleteStoredPrepItem, PrepItem 
+  getStoredPrepItems, savePrepItem, deleteStoredPrepItem, fetchPrepItemsFromSupabase, PrepItem 
 } from '../lib/dataStore';
+import { useAuth } from '../contexts/AuthContext';
 import { Button } from '../components/Button';
 import { Card } from '../components/Card';
 import { ConfirmModal } from '../components/ConfirmModal';
@@ -29,6 +30,7 @@ const SORT_OPTIONS: SelectOption[] = [
 
 
 export const Preparation = () => {
+  const { user } = useAuth();
   const [items, setItems] = useState<PrepItem[]>([]);
   const [selectedItemId, setSelectedItemId] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
@@ -64,9 +66,9 @@ export const Preparation = () => {
 
   useEffect(() => {
     loadData();
-  }, []);
+  }, [user]);
 
-  const loadData = () => {
+  const loadData = async () => {
     const itemList = getStoredPrepItems();
     setItems(itemList);
 
@@ -74,6 +76,17 @@ export const Preparation = () => {
     if (itemList.length > 0 && !selectedItemId) {
       setSelectedItemId(itemList[0].id);
       setActiveDoc(itemList[0]);
+    }
+
+    if (user?.id) {
+      const cloudItems = await fetchPrepItemsFromSupabase(user.id);
+      if (cloudItems && cloudItems.length > 0) {
+        setItems(cloudItems);
+        if (!selectedItemId) {
+          setSelectedItemId(cloudItems[0].id);
+          setActiveDoc(cloudItems[0]);
+        }
+      }
     }
   };
 
@@ -102,8 +115,17 @@ export const Preparation = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isFullscreen]);
 
+  // Cleanup pending auto-save timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (saveTimeoutRef.current) {
+        clearTimeout(saveTimeoutRef.current);
+      }
+    };
+  }, []);
+
   // Debounced auto-save (800ms delay) to prevent excessive storage calls
-  const handleDocChange = (field: keyof PrepItem, value: any) => {
+  const handleDocChange = <K extends keyof PrepItem>(field: K, value: PrepItem[K]) => {
     if (!activeDoc) return;
     
     const updated = { ...activeDoc, [field]: value, updated_at: new Date().toISOString() };

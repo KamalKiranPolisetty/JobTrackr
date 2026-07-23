@@ -5,6 +5,11 @@ const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'placeholder-a
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
+export const isSupabaseConfigured = (): boolean => {
+  const url = import.meta.env.VITE_SUPABASE_URL;
+  const key = import.meta.env.VITE_SUPABASE_ANON_KEY;
+  return Boolean(url && key && url !== 'https://placeholder.supabase.co' && !url.includes('placeholder'));
+};
 
 export type Json =
   | string
@@ -22,7 +27,8 @@ export interface Database {
           id: string
           email: string
           full_name: string
-          custom_columns: Json
+          target_role: string
+          target_location: string
           theme: string
           created_at: string
           updated_at: string
@@ -31,7 +37,8 @@ export interface Database {
           id: string
           email: string
           full_name?: string
-          custom_columns?: Json
+          target_role?: string
+          target_location?: string
           theme?: string
           created_at?: string
           updated_at?: string
@@ -40,7 +47,8 @@ export interface Database {
           id?: string
           email?: string
           full_name?: string
-          custom_columns?: Json
+          target_role?: string
+          target_location?: string
           theme?: string
           created_at?: string
           updated_at?: string
@@ -50,106 +58,89 @@ export interface Database {
         Row: {
           id: string
           user_id: string
-          role: string
           company: string
+          role: string
           status: string
-          applied_date: string
+          salary: string
+          location: string
           job_link: string
           notes: string
-          custom_data: Json
+          applied_date: string
           created_at: string
           updated_at: string
         }
         Insert: {
           id?: string
           user_id: string
-          role: string
           company: string
+          role: string
           status?: string
-          applied_date?: string
+          salary?: string
+          location?: string
           job_link?: string
           notes?: string
-          custom_data?: Json
+          applied_date?: string
           created_at?: string
           updated_at?: string
         }
         Update: {
           id?: string
           user_id?: string
-          role?: string
           company?: string
+          role?: string
           status?: string
-          applied_date?: string
+          salary?: string
+          location?: string
           job_link?: string
           notes?: string
-          custom_data?: Json
+          applied_date?: string
           created_at?: string
           updated_at?: string
         }
       }
-      stories: {
+      prep_items: {
         Row: {
           id: string
           user_id: string
+          type: string
+          category: string
           title: string
           situation: string
           task: string
           action: string
           result: string
-          tags: string[]
-          created_at: string
-          updated_at: string
-        }
-        Insert: {
-          id?: string
-          user_id: string
-          title: string
-          situation?: string
-          task?: string
-          action?: string
-          result?: string
-          tags?: string[]
-          created_at?: string
-          updated_at?: string
-        }
-        Update: {
-          id?: string
-          user_id?: string
-          title?: string
-          situation?: string
-          task?: string
-          action?: string
-          result?: string
-          tags?: string[]
-          created_at?: string
-          updated_at?: string
-        }
-      }
-      notes: {
-        Row: {
-          id: string
-          user_id: string
-          title: string
           content: string
-          tags: string[]
+          folder_id: string
           created_at: string
           updated_at: string
         }
         Insert: {
           id?: string
           user_id: string
+          type?: string
+          category?: string
           title: string
+          situation?: string
+          task?: string
+          action?: string
+          result?: string
           content?: string
-          tags?: string[]
+          folder_id?: string
           created_at?: string
           updated_at?: string
         }
         Update: {
           id?: string
           user_id?: string
+          type?: string
+          category?: string
           title?: string
+          situation?: string
+          task?: string
+          action?: string
+          result?: string
           content?: string
-          tags?: string[]
+          folder_id?: string
           created_at?: string
           updated_at?: string
         }
