@@ -60,8 +60,8 @@ export const Login = () => {
   return (
     <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden p-4">
       {/* Background ambient lighting effects */}
-      <div className="absolute top-1/4 left-1/4 h-80 w-80 rounded-full bg-blue-500/20 blur-3xl pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 h-80 w-80 rounded-full bg-teal-500/20 blur-3xl pointer-events-none" />
+      <div className="absolute top-1/4 left-1/4 h-80 w-80 rounded-full bg-[#D7494C]/10 blur-3xl pointer-events-none" />
+      <div className="absolute bottom-1/4 right-1/4 h-80 w-80 rounded-full bg-rose-500/10 blur-3xl pointer-events-none" />
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
